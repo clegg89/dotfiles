@@ -53,6 +53,7 @@ done
 dir=${PWD}                         # dotfiles directory
 olddir=${dir}_old   # old dotfiles backup directory
 script=${0##*/}                   # Script name
+ignores="${script} README.md"
 
 ##########
 
@@ -65,7 +66,7 @@ install_dotfiles()
     src=${file##*/}
     dest=${HOME}/.${src}
     script=${0##*/}
-    if [ ${src} != ${script} ]
+    if [[ ! ${ignores} =~ ${src} ]]
     then
       [[ -e $dest ]] && action mv ${dest} ${olddir}/${dest##*/.}
       action ln -s ${dir}/${src} ${dest}
