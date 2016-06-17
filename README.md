@@ -10,4 +10,4 @@ cd dotfiles
 
 ## Uninstalling
 The install script can "undo" itself:
-`./install.sh --uininstall`
+`./install.sh --uinstall`
