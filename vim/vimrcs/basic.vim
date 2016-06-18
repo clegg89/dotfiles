@@ -329,7 +329,10 @@ map <leader>pp :setlocal paste!<cr>
 " Cscope settings
 set cscopetag
 if filereadable("cscope.out")
-  cscope add cscope.out
+  try
+    cscope add cscope.out
+  catch
+  endtry
 endif
 
 "Cscope mappings
