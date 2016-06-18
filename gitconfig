@@ -4,6 +4,8 @@
 	name = Casey Smith
 	email = clegg89@gmail.com
 [core]
-	autocrlf = false
+	autocrlf = input
+	excludesfile = /home/clegg/.gitignore_global
+	safecrlf = false
 [push]
 	default = simple
