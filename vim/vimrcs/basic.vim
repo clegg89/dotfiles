@@ -12,9 +12,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
-Plugin 'milesvz/ack.vim'
+Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/bufexplorer.zip'
-Plugin 'ctrlpvim/crlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'junegunn/goyo.vim'
 Plugin 'vim-scripts/mru.vim'
 Plugin 'itchyny/lightline.vim'
