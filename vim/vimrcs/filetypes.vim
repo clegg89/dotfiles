@@ -47,3 +47,9 @@ endfunction
 au FileType coffee call CoffeeScriptFold()
 
 au FileType gitcommit call setpos('.', [0, 1, 1, 0])
+
+
+""""""""""""""""""""""""""""""
+" => Scheme section
+"""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.sch set syntax=scheme
