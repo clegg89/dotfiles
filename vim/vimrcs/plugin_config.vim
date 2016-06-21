@@ -1,10 +1,4 @@
 """"""""""""""""""""""""""""""
-" => Load pathogen paths
-""""""""""""""""""""""""""""""
-call pathogen#infect()
-call pathogen#helptags()
-
-""""""""""""""""""""""""""""""
 " => bufExplorer plugin
 """"""""""""""""""""""""""""""
 let g:bufExplorerDefaultHelp=0
