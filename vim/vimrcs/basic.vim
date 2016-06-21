@@ -1,4 +1,50 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vundle Plugin Loading
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Plugins
+Plugin 'milesvz/ack.vim'
+Plugin 'vim-scripts/bufexplorer.zip'
+Plugin 'ctrlpvim/crlp.vim'
+Plugin 'junegunn/goyo.vim'
+Plugin 'vim-scripts/mru.vim'
+Plugin 'itchyny/lightline.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'amix/open_file_under_cursor.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'wellle/targets.vim'
+Plugin 'tomtom/tlib_vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tpope/vim-commentary'
+Plugin 'terryma/vim-expand-region'
+Plugin 'tpope/vim-fugitive'
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'garbas/vim-snipmate'
+Plugin 'christoomey/vim-sort-motion'
+Plugin 'tpope/vim-surround'
+Plugin 'evidens/vim-twig'
+Plugin 'amix/vim-zenroom2'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Increase line history
