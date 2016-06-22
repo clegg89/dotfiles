@@ -318,16 +318,6 @@ endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
-" Move mappings
-"map [[ ?{<CR>w99[{
-"map ][ /}<CR>b99]}
-"map ]] j0[[%/{<CR>
-"map [] k$][%?}<CR>
-
-" Insert lines w/o entering insert mode
-nnoremap <S-Enter> O<Esc>
-nnoremap <CR> o<Esc>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ag searching and cope displaying
 "    requires ag.vim - it's much better than vimgrep/grep
