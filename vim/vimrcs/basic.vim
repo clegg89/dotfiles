@@ -35,7 +35,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'evidens/vim-twig'
 Plugin 'amix/vim-zenroom2'
 Plugin 'tmux-plugins/vim-tmux'
-Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-obsession'
 
 " All of your Plugins must be added before the following line
