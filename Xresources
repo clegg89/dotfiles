@@ -1,3 +1,5 @@
+urxvt*font: xft:Hack:style=Bold:pixelsize=12
+
 *background:#222222
 *foreground:#e8e9ca
 
