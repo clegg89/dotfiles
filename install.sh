@@ -68,7 +68,15 @@ install_dotfiles()
     script=${0##*/}
     if [[ ! ${ignores} =~ ${src} ]]
     then
-      [[ -e $dest ]] && action mv ${dest} ${olddir}/${dest##*/.}
+      if [[ -e $dest ]] 
+      then
+        if [[ ! -L $dest ]]
+        then
+          action mv ${dest} ${olddir}/${dest##*/.}
+        else
+          action rm ${dest}
+        fi
+      fi
       action ln -s ${dir}/${src} ${dest}
     fi
   done
