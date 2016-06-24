@@ -1,4 +1,4 @@
-urxvt*font: xft:Hack:style=Bold:pixelsize=12
+urxvt*font: xft:DejaVu Sans Mono for Powerline:style=Bold:pixelsize=12
 
 *background:#222222
 *foreground:#e8e9ca
