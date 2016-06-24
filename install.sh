@@ -50,15 +50,24 @@ done
 
 ########## Variables
 
-dir=${PWD}                         # dotfiles directory
-olddir=${dir}_old   # old dotfiles backup directory
-script=${0##*/}                   # Script name
+pushd `dirname $0` > /dev/null
+dir=`pwd`              # dotfiles directory
+popd > /dev/null
+
+olddir=${dir}_old      # old dotfiles backup directory
+script=${0##*/}        # Script name
 ignores="${script} README.md"
 
 ##########
 
 install_dotfiles()
 {
+  # Make sure submodules are present
+  pushd ${dir} > /dev/null
+  git submodule init
+  git submodule update
+  popd > /dev/null
+
   # create dotfiles_old in homedir
   action mkdir -p ${olddir}
 
@@ -80,6 +89,11 @@ install_dotfiles()
       action ln -s ${dir}/${src} ${dest}
     fi
   done
+
+  # Install fonts
+  action source ${dir}/fonts/install.sh
+
+  echo "Make sure to install VIM and TMUX plugins using respective package managers"
 }
 
 uninstall_dotfiles()
@@ -94,15 +108,8 @@ uninstall_dotfiles()
   done
 }
 
-# Hidden files will not be included if dotglob option is unset
-# Query the current value
-# shopt -q dotglob
-# dotstatus=$?
-
-# Set if it wasn't set
-# (( "$dotstatus" )) && shopt -s dotglob
+########
+# MAIN #
+########
 
 $uninstall && uninstall_dotfiles || install_dotfiles
-
-# Clear if it wasn't set
-# (( "$dotstatus" )) || shopt -u dotglob
