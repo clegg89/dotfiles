@@ -90,8 +90,14 @@ install_dotfiles()
     fi
   done
 
-  # Install fonts
-  action source ${dir}/fonts/install.sh
+  if command -v fc-cache @>/dev/null
+  then
+    echo -n "Refreshing Fonts (this may take some time...)"
+    fc-cache -f
+    echo " Done"
+  else
+    echo "fc-cache command not found, cannot load fonts"
+  fi
 
   echo "Make sure to install VIM and TMUX plugins using respective package managers"
 }
