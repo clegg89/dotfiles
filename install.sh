@@ -64,8 +64,20 @@ install_dotfiles()
 {
   # Make sure submodules are present
   pushd ${dir} > /dev/null
-  git submodule init
-  git submodule update
+
+  action git submodule init
+  action git submodule update
+
+  if [[ ! -e "vim/bundle/Vundle.vim" ]]
+  then
+    action git clone https://github.com/VundleVim/Vundle.vim.git vim/bundle/Vundle.vim
+  fi
+
+  if [[ ! -e "tmux/plugins/tpm" ]]
+  then
+    action git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm
+  fi
+
   popd > /dev/null
 
   # create dotfiles_old in homedir
@@ -93,13 +105,14 @@ install_dotfiles()
   if command -v fc-cache @>/dev/null
   then
     echo -n "Refreshing Fonts (this may take some time...)"
-    fc-cache -f
+    action fc-cache -f
     echo " Done"
   else
     echo "fc-cache command not found, cannot load fonts"
   fi
 
-  echo "Make sure to install VIM and TMUX plugins using respective package managers"
+  action vim +PluginInstall +qall
+  echo "Don't forget to update/install tmux plugins"
 }
 
 uninstall_dotfiles()
