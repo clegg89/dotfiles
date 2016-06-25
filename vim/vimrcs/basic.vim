@@ -36,6 +36,7 @@ Plugin 'evidens/vim-twig'
 Plugin 'amix/vim-zenroom2'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'tpope/vim-obsession'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
