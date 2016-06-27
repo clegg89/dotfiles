@@ -38,6 +38,7 @@ Plugin 'tpope/vim-obsession'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'dansomething/vim-eclim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
