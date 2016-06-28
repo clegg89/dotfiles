@@ -355,7 +355,8 @@ map <leader>x :e ~/buffer.md<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-" Cscope settings
+" Tag settings
+set tags=./tags
 set cscopetag
 if filereadable("cscope.out")
   try
