@@ -156,14 +156,18 @@ if &term =~ '^xterm\|^rxvt\|^screen'
       " solid block
       let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
       " blinking underscore
-      let &t_SR = "\<Esc>Ptmux;\<Esc>\e[3 q\<Esc>\\"
+      if v:version > 704 || v:version == 704 && has('patch687')
+        let &t_SR = "\<Esc>Ptmux;\<Esc>\e[3 q\<Esc>\\"
+      endif
   else
       " blinking vertical bar
       let &t_SI = "\<Esc>[5 q"
       " solid block
       let &t_EI = "\<Esc>[2 q"
       " blinking underscore
-      let &t_SR = "\<Esc>[3 q"
+      if v:version > 704 || v:version == 704 && has('patch687')
+        let &t_SR = "\<Esc>[3 q"
+      endif
   endif
 endif
 
