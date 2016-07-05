@@ -98,3 +98,10 @@ nnoremap <silent> <leader>d :GitGutterToggle<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
 let g:airline_theme='tomorrow'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Clang Complete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Select first entry in popup
+let g:clang_auto_select = 1
+
