@@ -97,7 +97,8 @@ set cmdheight=2
 set number
 set relativenumber
 
-" Fix relative jumps
+" Unless we are jumping multiple lines, treat wrapped lines
+" as multiple lines
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
@@ -157,14 +158,18 @@ if &term =~ '^xterm\|^rxvt\|^screen'
       " solid block
       let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
       " blinking underscore
-      let &t_SR = "\<Esc>Ptmux;\<Esc>\e[3 q\<Esc>\\"
+      if v:version > 704 || v:version == 704 && has('patch687')
+        let &t_SR = "\<Esc>Ptmux;\<Esc>\e[3 q\<Esc>\\"
+      endif
   else
       " blinking vertical bar
       let &t_SI = "\<Esc>[5 q"
       " solid block
       let &t_EI = "\<Esc>[2 q"
       " blinking underscore
-      let &t_SR = "\<Esc>[3 q"
+      if v:version > 704 || v:version == 704 && has('patch687')
+        let &t_SR = "\<Esc>[3 q"
+      endif
   endif
 endif
 
@@ -230,10 +235,6 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
-
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
 map <c-space> ?
