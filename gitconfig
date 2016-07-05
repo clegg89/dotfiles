@@ -5,7 +5,7 @@
 	email = clegg89@gmail.com
 [core]
 	autocrlf = input
-	excludesfile = /home/clegg/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	safecrlf = false
 [push]
 	default = simple
