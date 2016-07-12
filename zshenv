@@ -43,7 +43,7 @@ if [ -d "${HOME}/.local" ]; then
   fi
 
   # Source local user profile extensions
-  if [ -d "${HOME}/.local/etc" ] && [ -f "${HOME}/.local/etc/zenv" ]; then
-    source "${HOME}/.local/etc/zenv"
+  if [ -d "${HOME}/.local/etc" ] && [ -f "${HOME}/.local/etc/zshenv" ]; then
+    source "${HOME}/.local/etc/zshenv"
   fi
 fi
