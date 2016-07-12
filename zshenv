@@ -47,3 +47,7 @@ if [ -d "${HOME}/.local" ]; then
     source "${HOME}/.local/etc/zshenv"
   fi
 fi
+
+export PATH
+export MANPATH
+export INFOPATH
