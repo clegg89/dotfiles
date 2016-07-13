@@ -38,8 +38,6 @@ Plugin 'tpope/vim-obsession'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'dansomething/vim-eclim'
-Plugin 'Rip-Rip/clang_complete'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -157,6 +155,7 @@ if &term =~ '^xterm\|^rxvt\|^screen'
       let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
       " solid block
       let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+      let &t_IS = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
       " blinking underscore
       if v:version > 704 || v:version == 704 && has('patch687')
         let &t_SR = "\<Esc>Ptmux;\<Esc>\e[3 q\<Esc>\\"
@@ -166,6 +165,7 @@ if &term =~ '^xterm\|^rxvt\|^screen'
       let &t_SI = "\<Esc>[5 q"
       " solid block
       let &t_EI = "\<Esc>[2 q"
+      let &t_IS = "\<Esc>[2 q"
       " blinking underscore
       if v:version > 704 || v:version == 704 && has('patch687')
         let &t_SR = "\<Esc>[3 q"
