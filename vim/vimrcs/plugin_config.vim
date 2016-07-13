@@ -77,6 +77,9 @@ nnoremap <silent> <leader>z :Goyo<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic (syntax checker)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General
+let g:syntastic_auto_loc_list = 0
+
 " Python
 let g:syntastic_python_checkers=['pyflakes']
 
@@ -84,7 +87,6 @@ let g:syntastic_python_checkers=['pyflakes']
 let g:syntastic_javascript_checkers = ['jshint']
 
 " Go
-let g:syntastic_auto_loc_list = 1
 let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
