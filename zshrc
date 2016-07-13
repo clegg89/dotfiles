@@ -37,7 +37,7 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Cygwin Alliases
-if [ $(uname -o) == "Cygwin" ]; then
+if [[ $(uname -o) == "Cygwin" ]]; then
   alias sudo=''
   alias apt-get='apt-cyg'
 fi
