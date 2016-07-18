@@ -106,4 +106,5 @@ let g:airline_theme='tomorrow'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Select first entry in popup
 let g:clang_auto_select = 1
-
+let g:clang_snippets_engine = 1
+let g:clang_complete_macros = 1
