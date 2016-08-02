@@ -108,3 +108,6 @@ let g:airline_theme='tomorrow'
 let g:clang_auto_select = 1
 let g:clang_snippets_engine = 1
 let g:clang_complete_macros = 1
+let g:clang_complete_option_args_in_snippets = 1
+let g:clang_trailing_placeholder = 1
+
