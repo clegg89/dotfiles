@@ -193,8 +193,7 @@ endtry
 set encoding=utf8
 
 " Always use unix fileformats
-set ffs=unix
-set fileformat=unix
+set ffs=unix,dos,mac
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
