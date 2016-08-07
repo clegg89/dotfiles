@@ -432,3 +432,7 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+" Source local vimrc
+set exrc
+set secure
