@@ -111,3 +111,8 @@ let g:clang_complete_macros = 1
 let g:clang_complete_option_args_in_snippets = 1
 let g:clang_trailing_placeholder = 1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim Templates
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" User Search Directories
+let g:templates_directory = '~/.vim/templates'
