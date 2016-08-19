@@ -39,6 +39,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Rip-Rip/clang_complete'
+Plugin 'aperezdc/vim-template'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
