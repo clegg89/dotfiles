@@ -116,3 +116,10 @@ let g:clang_trailing_placeholder = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " User Search Directories
 let g:templates_directory = [ '~/.local/etc/vim-templates', '~/.vim/templates' ]
+let g:templates_user_variables = [
+  \   ['CUT', 'GetCut'],
+  \ ]
+
+func! GetCut()
+  return substitute(expand("%:t:r:r:r"), "_test", "", "")
+endfunc
