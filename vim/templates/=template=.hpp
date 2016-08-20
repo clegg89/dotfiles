@@ -1,13 +1,21 @@
-/*
- * %FFILE%
- * Copyright (C) %YEAR% %USER% <%MAIL%>
+/**
+ * @file %FFILE%
  *
- * Distributed under terms of the %LICENSE% license.
+ * @author C. Smith
  */
 
-#ifndef %GUARD%
-#define %GUARD%
+#ifndef _%GUARD%_
+#define _%GUARD%_
 
-%HERE%
+/**
+ */
+class %FILE%
+{
+  public:
+    %FILE%();
+    virtual ~%FILE%();
 
-#endif /* !%GUARD% */
+    %HERE%
+};
+
+#endif /* _%GUARD%_ */

@@ -1,11 +1,16 @@
 /*
- * %FFILE%
- * Copyright (C) %YEAR% %USER% <%MAIL%>
+ * @file %FFILE%
  *
- * Distributed under terms of the %LICENSE% license.
+ * @author C. Smith
  */
 
-#include "%FILE%.h"
+#include "%FILE%.hpp"
 
+%FILE%::%FILE%()
+{
+  %HERE%
+}
 
-%HERE%
+%FILE%::~%FILE%()
+{ 
+}

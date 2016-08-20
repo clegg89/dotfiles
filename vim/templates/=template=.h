@@ -1,12 +1,12 @@
-/*
- * %FFILE%
+/**
+ * @file %FFILE%
  *
- * Distributed under terms of the %LICENSE% license.
+ * @author C. Smith
  */
 
-#ifndef %GUARD%
-#define %GUARD%
+#ifndef _%GUARD%_
+#define _%GUARD%_
 
 %HERE%
 
-#endif /* !%GUARD% */
+#endif /* _%GUARD%_ */
