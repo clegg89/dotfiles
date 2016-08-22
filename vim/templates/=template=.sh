@@ -4,8 +4,7 @@ debug=false
 
 action()
 {
-    echo $@
-    $debug || eval $@
+    $debug && echo $@ || eval $@
 }
 
 die()
