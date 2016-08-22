@@ -122,6 +122,10 @@ let g:templates_user_variables = [
   \   ['PERSONAL_CLASS', 'PersonalClass']
   \ ]
 
+func! FileName()
+  return expand("%:t:r:r:r")
+endfunc
+
 func! Classify(filen)
   return substitute(a:filen, "\\([a-zA-Z]\\+\\)", "\\u\\1\\e", "g")
 endfunc
@@ -130,22 +134,16 @@ func! CamelCase(class)
   return substitute(a:class, "[_-]", "", "g")
 endfunc
 
-let s:filen      = expand("%:t:r:r:r")
-let s:class      = Classify(s:filen)
-let s:camelclass = CamelCase(s:class)
-let s:cutfilen   = substitute(s:filen, "_test", "", "")
-let s:cutclass   = Classify(s:cutfilen)
-let s:camelcut   = CamelCase(s:cutclass)
-let s:testgroup  = substitute(s:camelcut, "\\([a-zA-Z]\\+\\)", "\\l\\1\\e", "g")
-
 func! GetCutFile()
-  return s:cutfilen
+  let l:filen = FileName()
+  return substitute(l:filen, "_test", "", "")
 endfunc
 
 func! TestGroup()
-  return s:testgroup
+  let l:camelcut = CamelCase(Classify(GetCutFile()))
+  return substitute(l:camelcut, "\\([a-zA-Z]\\+\\)", "\\l\\1\\e", "g")
 endfunc
 
 func! PersonalClass()
-  return s:camelclass
+  return CamelCase(Classify(FileName()))
 endfunc
