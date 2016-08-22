@@ -117,9 +117,35 @@ let g:clang_trailing_placeholder = 1
 " User Search Directories
 let g:templates_directory = [ '~/.local/etc/vim-templates', '~/.vim/templates' ]
 let g:templates_user_variables = [
-  \   ['CUT', 'GetCut'],
+  \   ['CUT_FILE', 'GetCutFile'],
+  \   ['TEST_GROUP', 'TestGroup'],
+  \   ['PERSONAL_CLASS', 'PersonalClass']
   \ ]
 
-func! GetCut()
-  return substitute(expand("%:t:r:r:r"), "_test", "", "")
+func! Classify(filen)
+  return substitute(a:filen, "\\([a-zA-Z]\\+\\)", "\\u\\1\\e", "g")
+endfunc
+
+func! CamelCase(class)
+  return substitute(a:class, "[_-]", "", "g")
+endfunc
+
+let s:filen      = expand("%:t:r:r:r")
+let s:class      = Classify(s:filen)
+let s:camelclass = CamelCase(s:class)
+let s:cutfilen   = substitute(s:filen, "_test", "", "")
+let s:cutclass   = Classify(s:cutfilen)
+let s:camelcut   = CamelCase(s:cutclass)
+let s:testgroup  = substitute(s:camelcut, "\\([a-zA-Z]\\+\\)", "\\l\\1\\e", "g")
+
+func! GetCutFile()
+  return s:cutfilen
+endfunc
+
+func! TestGroup()
+  return s:testgroup
+endfunc
+
+func! PersonalClass()
+  return s:camelclass
 endfunc

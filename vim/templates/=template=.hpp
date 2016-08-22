@@ -9,11 +9,11 @@
 
 /**
  */
-class %FILE%
+class %PERSONAL_CLASS%
 {
   public:
-    %FILE%();
-    virtual ~%FILE%();
+    %PERSONAL_CLASS%();
+    virtual ~%PERSONAL_CLASS%();
 
     %HERE%
 };

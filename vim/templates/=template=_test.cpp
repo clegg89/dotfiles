@@ -9,9 +9,9 @@
 #include <CppuTest/TestHarness.h>
 #include <CppuTestExt/MockSupport.h>
 
-#include "%CUT%.hpp"
+#include "%CUT_FILE%.hpp"
 
-TEST_GROUP(%CUT%)
+TEST_GROUP(%TEST_GROUP%)
 {
   void setup()
   {
@@ -22,6 +22,6 @@ TEST_GROUP(%CUT%)
   }
 };
 
-TEST(%CUT%, %HERE%)
+TEST(%TEST_GROUP%, %HERE%)
 {
 }

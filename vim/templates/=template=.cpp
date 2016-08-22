@@ -6,11 +6,11 @@
 
 #include "%FILE%.hpp"
 
-%FILE%::%FILE%()
+%PERSONAL_CLASS%::%PERSONAL_CLASS%()
 {
   %HERE%
 }
 
-%FILE%::~%FILE%()
+%PERSONAL_CLASS%::~%PERSONAL_CLASS%()
 { 
 }
