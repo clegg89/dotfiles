@@ -118,6 +118,7 @@ let g:clang_trailing_placeholder = 1
 let g:templates_directory = [ '~/.local/etc/vim-templates', '~/.vim/templates' ]
 let g:templates_user_variables = [
   \   ['CUT_FILE', 'GetCutFile'],
+  \   ['CUT_CLASS', 'GetCutClass' ],
   \   ['TEST_GROUP', 'TestGroup'],
   \   ['PERSONAL_CLASS', 'PersonalClass']
   \ ]
@@ -139,9 +140,12 @@ func! GetCutFile()
   return substitute(l:filen, "_test", "", "")
 endfunc
 
+func! GetCutClass()
+  return CamelCase(Classify(GetCutFile()))
+endfunc
+
 func! TestGroup()
-  let l:camelcut = CamelCase(Classify(GetCutFile()))
-  return substitute(l:camelcut, "\\([a-zA-Z]\\+\\)", "\\l\\1\\e", "g")
+  return substitute(GetCutClass(), "\\([a-zA-Z]\\+\\)", "\\l\\1\\e", "g")
 endfunc
 
 func! PersonalClass()

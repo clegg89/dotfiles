@@ -1,7 +1,7 @@
 /*
  * @file %FFILE%
  *
- * @brief Unit Test for the %FILE% class.
+ * @brief Unit Test for the %CUT_CLASS% class.
  *
  * @author C. Smith
  */
