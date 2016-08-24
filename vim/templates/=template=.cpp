@@ -12,5 +12,5 @@
 }
 
 %PERSONAL_CLASS%::~%PERSONAL_CLASS%()
-{ 
+{
 }
