@@ -3,4 +3,15 @@
 @rem DESC: %HERE%
 @echo off
 setlocal
+
+set self=%~nx0
+
+:main
+
+:success
 endlocal
+goto :EOF
+
+:error
+echo %self% failed with error #%errorlevel%
+exit /b %errorlevel%
