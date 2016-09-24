@@ -6,6 +6,11 @@ setlocal
 
 set self=%~nx0
 
+@rem Skip function prototypes
+goto main
+
+@rem FUNCTIONS
+
 :main
 
 :success
