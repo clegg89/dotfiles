@@ -120,7 +120,9 @@ let g:templates_user_variables = [
   \   ['CUT_FILE', 'GetCutFile'],
   \   ['CUT_CLASS', 'GetCutClass' ],
   \   ['TEST_GROUP', 'TestGroup'],
-  \   ['PERSONAL_CLASS', 'PersonalClass']
+  \   ['PERSONAL_CLASS', 'PersonalClass'],
+  \   ['STRING_FROM_FILE', 'GetStringFromFile'],
+  \   ['STRING_FROM_CLASS', 'GetStringFromClass']
   \ ]
 
 func! FileName()
@@ -150,4 +152,13 @@ endfunc
 
 func! PersonalClass()
   return CamelCase(Classify(FileName()))
+endfunc
+
+func! GetStringFromFile()
+  let l:filen = FileName()
+  return substitute(l:filen, "-string-from", "", "")
+endfunc
+
+func! GetStringFromClass()
+  return CamelCase(Classify(GetStringFromFile()))
 endfunc
