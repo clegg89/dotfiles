@@ -40,6 +40,8 @@ source $ZSH/oh-my-zsh.sh
 if [[ $(uname -o) == "Cygwin" ]]; then
   alias sudo=''
   alias apt-get='apt-cyg'
+  alias atom='atom.cmd'
+  alias apm='apm.cmd'
 fi
 
 # Local zshrc extension
