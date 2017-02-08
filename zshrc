@@ -42,6 +42,11 @@ if [[ $(uname -o) == "Cygwin" ]]; then
   alias apt-get='apt-cyg'
   alias atom='atom.cmd'
   alias apm='apm.cmd'
+  alias ruby='cmd /c ruby'
+  alias rails='cmd /c rails'
+  alias rspec='cmd /c rspec'
+  alias gem='cmd /c gem'
+  alias bundle='cmd /c bundle'
 fi
 
 # Local zshrc extension
