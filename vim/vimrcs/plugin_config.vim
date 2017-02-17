@@ -156,7 +156,7 @@ endfunc
 
 func! GetStringFromFile()
   let l:filen = FileName()
-  return substitute(l:filen, "-string-from", "", "")
+  return substitute(l:filen, "string-from-", "", "")
 endfunc
 
 func! GetStringFromClass()
