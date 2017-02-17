@@ -122,7 +122,9 @@ let g:templates_user_variables = [
   \   ['TEST_GROUP', 'TestGroup'],
   \   ['PERSONAL_CLASS', 'PersonalClass'],
   \   ['STRING_FROM_FILE', 'GetStringFromFile'],
-  \   ['STRING_FROM_CLASS', 'GetStringFromClass']
+  \   ['STRING_FROM_CLASS', 'GetStringFromClass'],
+  \   ['COMPARATOR_FILE', 'GetComparatorFile'],
+  \   ['COMPARATOR_CLASS', 'GetComparatorClass']
   \ ]
 
 func! FileName()
@@ -161,4 +163,13 @@ endfunc
 
 func! GetStringFromClass()
   return CamelCase(Classify(GetStringFromFile()))
+endfunc
+
+func! GetComparatorFile()
+  let l:filen = FileName()
+  return substitute(l:filen, "-comparator", "", "")
+endfunc
+
+func! GetComparatorClass()
+  return CamelCase(Classify(GetComparatorFile()))
 endfunc
