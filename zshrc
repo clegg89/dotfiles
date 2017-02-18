@@ -43,6 +43,7 @@ if [[ $(uname -o) == "Cygwin" ]]; then
   alias atom='atom.cmd'
   alias apm='apm.cmd'
   alias ruby='cmd /c ruby'
+  alias rake='cmd /c rake'
   alias rails='cmd /c rails'
   alias rspec='cmd /c rspec'
   alias gem='cmd /c gem'
