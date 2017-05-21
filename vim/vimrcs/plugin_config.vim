@@ -112,6 +112,11 @@ let g:clang_complete_option_args_in_snippets = 1
 let g:clang_trailing_placeholder = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => YouCompleteMe
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Templates
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " User Search Directories
