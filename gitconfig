@@ -3,8 +3,8 @@
 	email = clegg89@gmail.com
 [core]
 	autocrlf = input
-	excludesfile = ~/.gitignore_global
 	safecrlf = false
+	excludesfile = ~/.gitignore_global
 	trustctime = false
 	editor = vim
 [push]
