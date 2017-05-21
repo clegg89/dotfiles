@@ -2,6 +2,11 @@
 # Environment Variable Additions
 #####################################
 
+# Fix for if SHELL is somehow not properly set.
+if [ "${SHELL}" != "/bin/zsh" ]; then
+  export SHELL="/bin/zsh"
+fi
+
 # Set PATH so it includes user's private bin if it exists
 if [ -d "${HOME}/bin" ]; then
   PATH="${HOME}/bin:${PATH}"
