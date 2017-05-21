@@ -150,7 +150,7 @@ run_vim_plugin_install()
 
 compile_you_complete_me()
 {
-  if [[ -e "~/.vim/bundle/YouCompleteMe" ]]
+  if [[ -e "${HOME}/.vim/bundle/YouCompleteMe" ]]
   then
     # YouCompleteMe was installed, try to finish the installation steps
     if [[ "$(uname -o)" = "GNU/Linux" ]]
