@@ -53,6 +53,21 @@ if [ -d "${HOME}/.local" ]; then
   fi
 fi
 
+if uname -r | grep -q 'Microsoft'; then
+  # Windows Subsystem for Linux (WSL)
+
+  # Save the base Windows directory path
+  windir=$(echo $PATH | tr ':' '\n' | grep 'Windows$')
+
+  # Remove all windows PATHS and whitelist our own.
+  while echo $PATH | grep -q '/mnt/[a-z]/'; do
+    PATH=${PATH%:/mnt/[a-z]/*}
+  done
+
+  # Add back in our whitelist
+  PATH="${PATH}:${windir}:${windir}/System32:${windir}/System32/wbem:${windir}/System32/WindowsPowerShell/v1.0"
+fi
+
 export PATH
 export MANPATH
 export INFOPATH
