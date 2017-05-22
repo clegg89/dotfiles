@@ -67,7 +67,7 @@ install_oh_my_zsh()
 
   if [[ ! -e ".oh-my-zsh" ]]
   then
-    action sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    action 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
   fi
 
   popd > /dev/null
