@@ -62,15 +62,12 @@ ignores="${script} README.md"
 
 install_oh_my_zsh()
 {
-  # Install oh-my-zsh
-  pushd ${HOME} > /dev/null
+  local ZSH="${HOME}/.oh-my-zsh"
 
-  if [[ ! -e ".oh-my-zsh" ]]
-  then
-    action 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
-  fi
+  # The install script launches a zsh shell and does other unnecessary stuff. Just run the git command
+  # action 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
 
-  popd > /dev/null
+  [[ -e "${ZSH}" ]] || action git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ${ZSH}
 }
 
 install_submodules()
@@ -88,46 +85,43 @@ install_vim_and_tmux_plugins()
   pushd ${dir} > /dev/null
 
   # vim and tmux Plugin managers
-  if [[ ! -e "vim/bundle/Vundle.vim" ]]
-  then
-    action git clone https://github.com/VundleVim/Vundle.vim.git vim/bundle/Vundle.vim
-  fi
-
-  if [[ ! -e "tmux/plugins/tpm" ]]
-  then
-    action git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm
-  fi
+  [[ -e "vim/bundle/Vundle.vim" ]] || action git clone https://github.com/VundleVim/Vundle.vim.git vim/bundle/Vundle.vim
+  [[ -e "tmux/plugins/tpm" ]] || action git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm
 
   popd > /dev/null
 }
 
+backup_file()
+{
+  local file=$1
+
+  # Remove symbolic links, move actual files
+  [[ -L $file ]] && action rm ${file} || action mv ${file} ${olddir}/${file##*/.}
+}
+
+backup_if_exists()
+{
+  local file=$1
+
+  [[ -e $file ]] && backup_file $file
+}
+
 backup_and_link_configs()
 {
-  pushd ${dir} > /dev/null
-
   # create dotfiles_old in homedir
   action mkdir -p ${olddir}
 
-  for file in ./*; do
-    src=${file##*/}
-    dest=${HOME}/.${src}
-    script=${0##*/}
-    if [[ ! ${ignores} =~ ${src} ]]
-    then
-      if [[ -e $dest ]] 
-      then
-        if [[ ! -L $dest ]]
-        then
-          action mv ${dest} ${olddir}/${dest##*/.}
-        else
-          action rm ${dest}
-        fi
-      fi
+  for file in ${dir}/*; do
+    local src=${file##*/}
+    local dest=${HOME}/.${src}
+
+    if [[ ! ${ignores} =~ ${src} ]]; then
+
+      backup_if_exists ${dest}
+
       action ln -s ${dir}/${src} ${dest}
     fi
   done
-
-  popd > /dev/null
 }
 
 install_fonts()
@@ -148,6 +142,48 @@ run_vim_plugin_install()
   echo "Don't forget to update/install tmux plugins"
 }
 
+install_ycm_dependencies()
+{
+  if which apt-get > /dev/null
+  then
+    # Install dependencies using apt-get
+    action sudo apt-get --assume-yes install build-essential cmake python-dev python3-dev
+  elif which dnf > /dev/null
+  then
+    # Install dependencies using dnf
+    action sudo dnf --assumeyes install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
+  elif which yum > /dev/null
+  then
+    # Install dependencies using yum
+    action sudo yum --assumeyes install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
+  else
+    echo "Unrecognized package manager, hopefully everythin we need is here..."
+  fi
+}
+
+determine_ycm_build_flags()
+{
+  local build_flags="--clang-completer"
+
+  if which node > /dev/null; then
+    # Javascript completion
+    build_flags="${build_flags} --tern-completer"
+  fi
+
+  echo ${build_flags}
+}
+
+run_ycm_install()
+{
+  local build_flags=$(determine_ycm_build_flags)
+
+  pushd ~/.vim/bundle/YouCompleteMe > /dev/null
+
+  action ./install.py ${build_flags}
+
+  popd > /dev/null
+}
+
 compile_you_complete_me()
 {
   if [[ -e "${HOME}/.vim/bundle/YouCompleteMe" ]]
@@ -155,35 +191,9 @@ compile_you_complete_me()
     # YouCompleteMe was installed, try to finish the installation steps
     if [[ "$(uname -o)" = "GNU/Linux" ]]
     then
-      local build_flags="--clang-completer"
+      install_ycm_dependencies
 
-      if which apt-get > /dev/null
-      then
-        # Install dependencies using apt-get
-        action sudo apt-get --assume-yes install build-essential cmake python-dev python3-dev
-      elif which dnf > /dev/null
-      then
-        # Install dependencies using dnf
-        action sudo dnf --assumeyes install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
-      elif which yum > /dev/null
-      then
-        # Install dependencies using yum
-        action sudo yum --assumeyes install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
-      else
-        echo "Unrecognized package manager, hopefully everythin we need is here..."
-      fi
-
-      if which node > /dev/null
-      then
-        # Javascript completion
-        build_flags="${build_flags} --tern-completer"
-      fi
-
-      pushd ~/.vim/bundle/YouCompleteMe > /dev/null
-
-      action ./install.py ${build_flags}
-
-      popd > /dev/null
+      run_ycm_install
     else
       echo "Unknown/Unsupported OS, not building YouCompleteMe"
     fi
@@ -199,11 +209,37 @@ copy_minttyrc()
 
     if [[ -e ${appdata}/wsltty ]]
     then
-      action cp ~/.minttyrc ${appdata}/wsltty/config
+      action install --mode=755 ~/.minttyrc ${appdata}/wsltty/config
     else
       echo "Could not find wsltty config directory"
     fi
   fi
+}
+
+install_dirs()
+{
+  local root_dir=$1
+  local dir_list=$2
+
+  [[ -d ${rood_dir} ]] || install --directory --mode=755 ${root_dir}
+
+  for dir in ${dir_list}; do
+    action install --directory --mode=755 ${root_dir}/${dir}
+  done
+}
+
+install_home_dirs()
+{
+  local dir_list="devel documents downloads explore build"
+
+  install_dirs "${HOME}" "${dir_list}"
+}
+
+install_local_dirs()
+{
+  local dir_list="bin sbin include lib src etc share"
+
+  install_dirs "${HOME}/.local" "${dir_list}"
 }
 
 install_dotfiles()
@@ -223,6 +259,10 @@ install_dotfiles()
   compile_you_complete_me
 
   copy_minttyrc
+
+  install_home_dirs
+
+  install_local_dirs
 }
 
 uninstall_dotfiles()
