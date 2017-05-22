@@ -218,6 +218,8 @@ install_dotfiles()
 
   install_fonts
 
+  run_vim_plugin_install
+
   compile_you_complete_me
 
   copy_minttyrc
