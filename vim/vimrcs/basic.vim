@@ -12,38 +12,46 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
-Plugin 'mileszs/ack.vim'
-Plugin 'vim-scripts/bufexplorer.zip'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'junegunn/goyo.vim'
-Plugin 'vim-scripts/mru.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'amix/open_file_under_cursor.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'wellle/targets.vim'
-Plugin 'tomtom/tlib_vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tpope/vim-commentary'
-Plugin 'terryma/vim-expand-region'
-Plugin 'tpope/vim-fugitive'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'garbas/vim-snipmate'
-Plugin 'christoomey/vim-sort-motion'
-Plugin 'tpope/vim-surround'
-Plugin 'evidens/vim-twig'
-Plugin 'amix/vim-zenroom2'
-Plugin 'tmux-plugins/vim-tmux'
-Plugin 'tpope/vim-obsession'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'vim-airline/vim-airline'
+"   Aesthetic
+Plugin 'vim-airline/vim-airline' " Airline status bar
 Plugin 'vim-airline/vim-airline-themes'
+"   System Tools
+"     Search
+Plugin 'mileszs/ack.vim' " Search tool (grep)
+Plugin 'ctrlpvim/ctrlp.vim' " Find files
+Plugin 'amix/open_file_under_cursor.vim'
+"     Explorers
+Plugin 'vim-scripts/bufexplorer.zip' " Visually show and select buffers
+Plugin 'scrooloose/nerdtree' " File tree explorer
+"     Objects
+Plugin 'wellle/targets.vim' " Additional objects (function arguments)
+Plugin 'terryma/vim-expand-region' " Visually select increasingly larger regions
+Plugin 'michaeljsmith/vim-indent-object' " Provides objects for indentations
+Plugin 'christoomey/vim-sort-motion' " Motions for sorting
+Plugin 'tpope/vim-surround' " delete, change, add 'surroundings' (quotes, brackets, etc.)
+"     Utility
+Plugin 'tomtom/tlib_vim' " Utilities, needed by snipmate
+Plugin 'MarcWeber/vim-addon-mw-utils' " Utilities, needed by snipmate
+Plugin 'tpope/vim-fugitive' " Git wrapper
+Plugin 'terryma/vim-multiple-cursors' " Sublime Text style multiple selections, not working
+Plugin 'tpope/vim-obsession' " Continuosly update session files
+"     Tmux
+Plugin 'tmux-plugins/vim-tmux' " tmux.conf sytnax highlighting
+Plugin 'christoomey/vim-tmux-navigator' " Switch between tmux panes and vim panes seamlessly
+"   Programming Tools
+"     Syntax
+Plugin 'scrooloose/syntastic' " Syntax checking
+"     General
+Plugin 'aperezdc/vim-template' " Filetype templates
+Plugin 'tpope/vim-commentary' " Toggle comments
+Plugin 'garbas/vim-snipmate' " Code snippets
+"     Autocomplete
 if has("win32unix")
+  " Cygwin (win32unix) doesn't work well with YouCompleteMe
   Plugin 'Rip-Rip/clang_complete'
 elseif has("unix")
   Plugin 'Valloric/YouCompleteMe'
 endif
-Plugin 'aperezdc/vim-template'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -150,6 +158,7 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" Cursor config
 if &term =~ '^xterm\|^rxvt\|^screen'
   " 1 or 0 -> blinking block
   " 3 -> blinking underscore
