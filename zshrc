@@ -12,6 +12,25 @@ umask 022
 # time that oh-my-zsh is loaded.
 ZSH_THEME="gnzh"
 
+# Cygwin Alliases
+if [[ $(uname -o) == "Cygwin" ]]; then
+  alias sudo=''
+  alias apt-get='apt-cyg'
+  alias atom='atom.cmd'
+  alias apm='apm.cmd'
+  alias ruby='cmd /c ruby'
+  alias rake='cmd /c rake'
+  alias rails='cmd /c rails'
+  alias rspec='cmd /c rspec'
+  alias gem='cmd /c gem'
+  alias bundle='cmd /c bundle'
+fi
+
+# Local zshrc extension
+if [ -d "${HOME}/.local/etc" ] && [ -f "${HOME}/.local/etc/zshrc" ]; then
+  source "${HOME}/.local/etc/zshrc"
+fi
+
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
@@ -32,27 +51,13 @@ ZSH_THEME="gnzh"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins+=(git)
+if which rails; then
+  plugins+=(rails)
+else
+  echo "FAIL"
+fi
 
 # User configuration
 
 source $ZSH/oh-my-zsh.sh
-
-# Cygwin Alliases
-if [[ $(uname -o) == "Cygwin" ]]; then
-  alias sudo=''
-  alias apt-get='apt-cyg'
-  alias atom='atom.cmd'
-  alias apm='apm.cmd'
-  alias ruby='cmd /c ruby'
-  alias rake='cmd /c rake'
-  alias rails='cmd /c rails'
-  alias rspec='cmd /c rspec'
-  alias gem='cmd /c gem'
-  alias bundle='cmd /c bundle'
-fi
-
-# Local zshrc extension
-if [ -d "${HOME}/.local/etc" ] && [ -f "${HOME}/.local/etc/zshrc" ]; then
-  source "${HOME}/.local/etc/zshrc"
-fi
