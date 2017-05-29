@@ -52,10 +52,8 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins+=(git)
-if which rails; then
+if which rails > /dev/null; then
   plugins+=(rails)
-else
-  echo "FAIL"
 fi
 
 # User configuration
