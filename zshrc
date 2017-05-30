@@ -59,3 +59,5 @@ fi
 # User configuration
 
 source $ZSH/oh-my-zsh.sh
+
+[[ -x /usr/bin/dircolors && -r ~/.dircolors ]] && eval "$(dircolors ~/.dircolors)"
