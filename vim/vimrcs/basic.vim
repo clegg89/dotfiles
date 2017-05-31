@@ -19,7 +19,6 @@ Plugin 'vim-airline/vim-airline-themes'
 "     Search
 Plugin 'mileszs/ack.vim' " Search tool (grep)
 Plugin 'ctrlpvim/ctrlp.vim' " Find files
-Plugin 'amix/open_file_under_cursor.vim'
 "     Explorers
 Plugin 'vim-scripts/bufexplorer.zip' " Visually show and select buffers
 Plugin 'scrooloose/nerdtree' " File tree explorer
@@ -46,6 +45,8 @@ Plugin 'aperezdc/vim-template' " Filetype templates
 Plugin 'tpope/vim-commentary' " Toggle comments
 Plugin 'garbas/vim-snipmate' " Code snippets
 "     Autocomplete
+Plugin 'vim-ruby/vim-ruby' " Ruby plugin
+Plugin 'tpope/vim-rails' " Rails plugin
 if has("win32unix")
   " Cygwin (win32unix) doesn't work well with YouCompleteMe
   Plugin 'Rip-Rip/clang_complete'
