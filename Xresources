@@ -1,22 +1,45 @@
 urxvt*font: xft:DejaVu Sans Mono for Powerline:style=Bold:pixelsize=12
-
-*background:#222222
-*foreground:#e8e9ca
-
-*color0:    #222222
-*color1:    #8b3e2f
-*color2:    #526f33
-*color3:    #665847
-*color4:    #4a708b
-*color5:    #7a378b
-*color6:    #528b8b
-*color7:    #999999
-
-*color8:    #4c4c4c
-*color9:    #d75f00
-*color10:   #cee318
-*color11:   #eee685
-*color12:   #9ac0cd
-*color13:   #9f79ee
-*color14:   #79cdcd
-*color15:   #e8e9ca
+!
+! Generated with :
+! XRDB2Xreources.py
+!
+*.foreground:  #c5c8c6
+*.background:  #161719
+*.cursorColor: #d0d0d0
+!
+! Black
+*.color0:      #000000
+*.color8:      #000000
+!
+! Red
+*.color1:      #fd5ff1
+*.color9:      #fd5ff1
+!
+! Green
+*.color2:      #87c38a
+*.color10:     #94fa36
+!
+! Yellow
+*.color3:      #ffd7b1
+*.color11:     #f5ffa8
+!
+! Blue
+*.color4:      #85befd
+*.color12:     #96cbfe
+!
+! Magenta
+*.color5:      #b9b6fc
+*.color13:     #b9b6fc
+!
+! Cyan
+*.color6:      #85befd
+*.color14:     #85befd
+!
+! White
+*.color7:      #e0e0e0
+*.color15:     #e0e0e0
+!
+! Bold, Italic, Underline
+*.colorBD:     #c5c8c6
+!*.colorIT:
+!*.colorUL:
