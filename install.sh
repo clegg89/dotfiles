@@ -56,7 +56,7 @@ popd > /dev/null
 
 olddir=${dir}_old      # old dotfiles backup directory
 script=${0##*/}        # Script name
-ignores="${script} README.md"
+install_whitelist="fonts config/nvim tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
 
 ##########
 
@@ -111,16 +111,20 @@ backup_and_link_configs()
   # create dotfiles_old in homedir
   action mkdir -p ${olddir}
 
-  for file in ${dir}/*; do
+  for file in ${install_whitelist}; do
     local src=${file##*/}
-    local dest=${HOME}/.${src}
+    local intermediate=${file%/*}
 
-    if [[ ! ${ignores} =~ ${src} ]]; then
-
-      backup_if_exists ${dest}
-
-      action ln -s ${dir}/${src} ${dest}
+    if [[ ${intermediate} != ${src} ]]; then
+      local dest=${HOME}/${intermediate}/.${src}
+      action mkdir -p ${HOME}/${intermediate}
+    else
+      local dest=${HOME}/.${src}
     fi
+
+    backup_if_exists ${dest}
+
+    action ln -s ${dir}/${src} ${dest}
   done
 }
 
@@ -157,7 +161,7 @@ install_ycm_dependencies()
     # Install dependencies using yum
     action sudo yum --assumeyes install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
   else
-    echo "Unrecognized package manager, hopefully everythin we need is here..."
+    echo "Unrecognized package manager, hopefully everything we need is here..."
   fi
 }
 
@@ -281,4 +285,8 @@ uninstall_dotfiles()
 # MAIN #
 ########
 
-$uninstall && uninstall_dotfiles || install_dotfiles
+if $uninstall; then
+  uninstall_dotfiles
+else
+  install_dotfiles
+fi
