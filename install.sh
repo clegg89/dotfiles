@@ -10,7 +10,7 @@ debug=false
 
 action()
 {
-   ($debug && echo $@) || eval $@
+  ($debug && echo $@) || eval $@
 }
 
 die()
@@ -56,7 +56,7 @@ popd > /dev/null
 
 olddir=${dir}_old      # old dotfiles backup directory
 script=${0##*/}        # Script name
-install_whitelist="fonts config/nvim tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
+install_whitelist="fonts config/nvim/init.vim tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
 
 ##########
 
@@ -116,7 +116,7 @@ backup_and_link_configs()
     local intermediate=${file%/*}
 
     if [[ ${intermediate} != ${src} ]]; then
-      local dest=${HOME}/${intermediate}/.${src}
+      local dest=${HOME}/.${intermediate}/${src}
       action mkdir -p ${HOME}/${intermediate}
     else
       local dest=${HOME}/.${src}
@@ -124,7 +124,7 @@ backup_and_link_configs()
 
     backup_if_exists ${dest}
 
-    action ln -s ${dir}/${src} ${dest}
+    action ln -s ${dir}/${file} ${dest}
   done
 }
 
