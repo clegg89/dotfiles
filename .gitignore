@@ -1,2 +1,4 @@
-vim/bundle/*
+vim/bundle
 tmux/*
+vim/plugged
+vim/autoload

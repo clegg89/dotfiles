@@ -85,7 +85,7 @@ install_vim_and_tmux_plugins()
   pushd ${dir} > /dev/null
 
   # vim and tmux Plugin managers
-  [[ -e "vim/bundle/Vundle.vim" ]] || action git clone https://github.com/VundleVim/Vundle.vim.git vim/bundle/Vundle.vim
+  [[ -e "vim/bundle" ]] && action rm -rf vim/bundle
   [[ -e "tmux/plugins/tpm" ]] || action git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm
 
   popd > /dev/null
@@ -142,7 +142,8 @@ install_fonts()
 
 run_vim_plugin_install()
 {
-  action vim +PluginInstall +qall
+  action vim +PlugInstall +qall
+  action nvim +PlugInstall +qall
   echo "Don't forget to update/install tmux plugins"
 }
 
