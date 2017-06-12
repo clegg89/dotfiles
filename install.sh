@@ -57,7 +57,7 @@ popd > /dev/null
 olddir=${dir}_old      # old dotfiles backup directory
 script=${0##*/}        # Script name
 install_blacklist="Desktop Downloads Templates Public Documents Music Pictures Videos"
-install_whitelist="fonts config/user-dirs.defaults config/nvim local/share tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
+install_whitelist="fonts config/user-dirs.defaults config/nvim tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
 
 ##########
 
@@ -92,12 +92,27 @@ install_vim_and_tmux_plugins()
   popd > /dev/null
 }
 
+make_intermediate_dir()
+{
+  local intermediate=${1%/*}
+  local intermediate=${intermediate##*/.}
+
+  action mkdir -p ${olddir}/${intermediate##.}
+}
+
 backup_file()
 {
   local file=$1
 
   # Remove symbolic links, move actual files
-  [[ -L $file ]] && action rm ${file} || action mv ${file} ${olddir}/${file##*/.}
+  if [[ -L $file ]]; then
+    action rm ${file}
+  else
+
+    make_intermediate_dir ${file}
+
+    action mv ${file} ${olddir}/${file##*/.}
+  fi
 }
 
 backup_if_exists()
@@ -110,6 +125,7 @@ backup_if_exists()
 backup_and_link_configs()
 {
   # create dotfiles_old in homedir
+  [[ -e ${olddir} ]] && rm -rf ${olddir}
   action mkdir -p ${olddir}
 
   for file in ${install_whitelist}; do
@@ -243,7 +259,7 @@ install_home_dirs()
 
 install_local_dirs()
 {
-  local dir_list="bin sbin include lib src etc"
+  local dir_list="bin sbin include lib src etc share"
 
   install_dirs "${HOME}/.local" "${dir_list}"
 }
@@ -251,7 +267,7 @@ install_local_dirs()
 install_xdg_dirs()
 {
   if which xdg-user-dirs-update > /dev/null; then
-    xdg-user-dirs-update
+    action xdg-user-dirs-update
   fi
 }
 
@@ -259,7 +275,7 @@ clean_home_dir()
 {
   for file in ${install_blacklist}; do
     # Do not force remove. If the directory is empty we want to leave it
-    rm -r ${HOME}/${file}
+    backup_if_exists ${HOME}/${file}
   done
 }
 
