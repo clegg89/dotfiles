@@ -56,7 +56,8 @@ popd > /dev/null
 
 olddir=${dir}_old      # old dotfiles backup directory
 script=${0##*/}        # Script name
-install_whitelist="fonts config/nvim local/share tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
+install_blacklist="Desktop Downloads Templates Public Documents Music Pictures Videos"
+install_whitelist="fonts config/user-dirs.defaults config/nvim local/share tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
 
 ##########
 
@@ -247,6 +248,21 @@ install_local_dirs()
   install_dirs "${HOME}/.local" "${dir_list}"
 }
 
+install_xdg_dirs()
+{
+  if which xdg-user-dirs-update > /dev/null; then
+    xdg-user-dirs-update
+  fi
+}
+
+clean_home_dir()
+{
+  for file in ${install_blacklist}; do
+    # Do not force remove. If the directory is empty we want to leave it
+    rm -r ${HOME}/${file}
+  done
+}
+
 install_dotfiles()
 {
   install_oh_my_zsh
@@ -268,6 +284,10 @@ install_dotfiles()
   install_home_dirs
 
   install_local_dirs
+
+  install_xdg_dirs
+
+  clean_home_dir
 }
 
 uninstall_dotfiles()
