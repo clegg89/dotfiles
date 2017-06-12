@@ -2,3 +2,5 @@ vim/bundle
 tmux/*
 vim/plugged
 vim/autoload
+config/nvim/plugged
+config/nvim/autoload

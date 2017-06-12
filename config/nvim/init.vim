@@ -22,17 +22,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Increase line history
-set history=500
-
-" Enable filetype plugins
-filetype plugin indent on
-
-" Set to auto read when a file is changed externally
-set autoread
-
 " Change map leader to comma: ',' for easier leader mapping
-let mapleader = ","
 let g:mapleader = ","
 
 " Fast saving
@@ -43,10 +33,6 @@ nmap <leader>w :w!<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
-
-" Turn on the WiLd menu
-" This provides autocomplete on commandline
-set wildmenu
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -74,23 +60,14 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 " A buffer becomes hidden when it is abandoned
 set hid
 
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
+" Configure other characters to move across lines
 set whichwrap+=<,>,h,l
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
 
 " Ignore case when searching
 set ignorecase
 
 " When searching try to be smart about cases
 set smartcase
-
-" Highlight search results
-set hlsearch
 
 " Makes search act like search in modern browsers
 set incsearch
@@ -116,7 +93,7 @@ set tm=500
 set foldcolumn=1
 
 " Cursor config
-if &term =~ '^xterm\|^rxvt\|^screen'
+if &term =~ '^xterm\|^rxvt\|^screen|^nvim'
   " 1 or 0 -> blinking block
   " 3 -> blinking underscore
   " Recent versions of xterm (282 or above) also support
@@ -180,9 +157,6 @@ set noswapfile
 " Use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs ;)
-set smarttab
-
 " 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
@@ -241,9 +215,6 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-set path+=~/.vim
-set tags=$PWD/tags
-
 " Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
@@ -259,9 +230,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 """"""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
-
-" Format the status line
-"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -283,35 +251,6 @@ func! DeleteTrailingWS()
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ag searching and cope displaying
-"    requires ag.vim - it's much better than vimgrep/grep
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" When you press gv you Ag after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open Ag and put the cursor in the right position
-map <leader>g :Ag
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with Ag, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
@@ -357,24 +296,6 @@ function! CmdLine(str)
     unmenu Foo
 endfunction
 
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ag \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
@@ -409,7 +330,7 @@ endfunction
 "    means that you can undo even when you close a buffer/VIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 try
-  set undodir=~/.vim_runtime/temp_dirs/undodir
+  set undodir=s:data_root . '/undo'
   set undofile
 catch
 endtry
@@ -491,6 +412,9 @@ au BufNewFile,BufRead *.sch set syntax=scheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
+" vim/neovim specific config
+execute "source" s:config_root . '/config.vim'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Loading
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -510,6 +434,7 @@ Plug 'tpope/vim-surround' " delete, change, add 'surroundings' (quotes, brackets
 Plug 'tomtom/tlib_vim' " Utilities, needed by snipmate
 Plug 'MarcWeber/vim-addon-mw-utils' " Utilities, needed by snipmate
 Plug 'tpope/vim-fugitive' " Git wrapper
+Plug 'airblade/vim-gitgutter' " Git diff gutter
 Plug 'terryma/vim-multiple-cursors' " Sublime Text style multiple selections, not working
 Plug 'tpope/vim-obsession' " Continuosly update session files
 Plug 'tmux-plugins/vim-tmux' " tmux.conf sytnax highlighting
@@ -521,7 +446,7 @@ Plug 'garbas/vim-snipmate' " Code snippets
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' } " Ruby plugin
 Plug 'tpope/vim-rails', { 'for': 'ruby' } " Rails plugin
 
-" execute 'source' s:config_root . 'plugin.vim'
+execute "source" s:config_root . '/plugin.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
