@@ -445,6 +445,7 @@ Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'garbas/vim-snipmate' " Code snippets
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' } " Ruby plugin
 Plug 'tpope/vim-rails', { 'for': 'ruby' } " Rails plugin
+Plug 'embear/vim-localvimrc'
 
 execute "source" s:config_root . '/plugin.vim'
 
@@ -597,3 +598,6 @@ execute "source" s:config_root . '/plugin_config.vim'
 if filereadable(expand("~/.local/etc/vimrc.vim"))
   source ~/.local/etc/vimrc.vim
 endif
+
+set exrc
+set secure
