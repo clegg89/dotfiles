@@ -450,6 +450,7 @@ Plug 'garbas/vim-snipmate' " Code snippets
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' } " Ruby plugin
 Plug 'tpope/vim-rails', { 'for': 'ruby' } " Rails plugin
 Plug 'embear/vim-localvimrc'
+Plug 'vim-scripts/Arduino-syntax-file'
 
 execute "source" s:config_root . '/plugin.vim'
 
