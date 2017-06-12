@@ -11,7 +11,6 @@ let g:clang_trailing_placeholder = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => YouCompleteMe
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 " Have to copy defaults because we can't append. We've added ruby
 let g:ycm_filetype_blacklist = {
       \ 'tagbar' : 1,
