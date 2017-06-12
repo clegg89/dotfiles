@@ -93,32 +93,36 @@ set tm=500
 set foldcolumn=1
 
 " Cursor config
-if &term =~ '^xterm\|^rxvt\|^screen|^nvim'
+if &term =~ '^xterm\|^rxvt\|^screen\|^nvim'
+  if &term =~ '^nvim'
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+  endif
+
   " 1 or 0 -> blinking block
   " 3 -> blinking underscore
   " Recent versions of xterm (282 or above) also support
   " 5 -> blinking vertical bar
   " 6 -> solid vertical bar
   if exists('$TMUX')
-      " blinking vertical bar
-      let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-      " solid block
-      let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-      let &t_IS = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-      " blinking underscore
-      if v:version > 704 || v:version == 704 && has('patch687')
-        let &t_SR = "\<Esc>Ptmux;\<Esc>\e[3 q\<Esc>\\"
-      endif
+    " blinking vertical bar
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+    " solid block
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+    let &t_IS = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+    " blinking underscore
+    if v:version > 704 || v:version == 704 && has('patch687')
+      let &t_SR = "\<Esc>Ptmux;\<Esc>\e[3 q\<Esc>\\"
+    endif
   else
-      " blinking vertical bar
-      let &t_SI = "\<Esc>[5 q"
-      " solid block
-      let &t_EI = "\<Esc>[2 q"
-      let &t_IS = "\<Esc>[2 q"
-      " blinking underscore
-      if v:version > 704 || v:version == 704 && has('patch687')
-        let &t_SR = "\<Esc>[3 q"
-      endif
+    " blinking vertical bar
+    let &t_SI = "\<Esc>[5 q"
+    " solid block
+    let &t_EI = "\<Esc>[2 q"
+    let &t_IS = "\<Esc>[2 q"
+    " blinking underscore
+    if v:version > 704 || v:version == 704 && has('patch687')
+      let &t_SR = "\<Esc>[3 q"
+    endif
   endif
 endif
 
