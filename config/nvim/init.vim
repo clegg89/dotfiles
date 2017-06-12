@@ -422,7 +422,7 @@ execute "source" s:config_root . '/config.vim'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Loading
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin()
+call plug#begin(s:data_root . '/plugged')
 
 Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'vim-airline/vim-airline-themes'
@@ -453,8 +453,7 @@ Plug 'embear/vim-localvimrc'
 
 execute "source" s:config_root . '/plugin.vim'
 
-" All of your Plugins must be added before the following line
-call plug#end()            " required
+call plug#end()
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin

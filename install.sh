@@ -56,7 +56,7 @@ popd > /dev/null
 
 olddir=${dir}_old      # old dotfiles backup directory
 script=${0##*/}        # Script name
-install_whitelist="fonts config/nvim tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
+install_whitelist="fonts config/nvim local/share tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
 
 ##########
 
@@ -182,7 +182,7 @@ run_ycm_install()
 {
   local build_flags=$(determine_ycm_build_flags)
 
-  pushd ~/.vim/bundle/YouCompleteMe > /dev/null
+  pushd ~/.vim/plugged/YouCompleteMe > /dev/null
 
   action ./install.py ${build_flags}
 
@@ -191,7 +191,7 @@ run_ycm_install()
 
 compile_you_complete_me()
 {
-  if [[ -e "${HOME}/.vim/bundle/YouCompleteMe" ]]
+  if [[ -e "${HOME}/.vim/plugged/YouCompleteMe" ]]
   then
     # YouCompleteMe was installed, try to finish the installation steps
     if [[ "$(uname -o)" = "GNU/Linux" ]]
@@ -242,7 +242,7 @@ install_home_dirs()
 
 install_local_dirs()
 {
-  local dir_list="bin sbin include lib src etc share"
+  local dir_list="bin sbin include lib src etc"
 
   install_dirs "${HOME}/.local" "${dir_list}"
 }
