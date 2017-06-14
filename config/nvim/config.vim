@@ -13,3 +13,6 @@ function! g:config#tabComplete() abort
     endif
   endif
 endfunction
+
+" Ignore case when opening files
+set wildignorecase
