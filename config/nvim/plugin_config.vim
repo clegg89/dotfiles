@@ -1,10 +1,2 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Deoplete
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:deoplete#enable_at_startup = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Deoplete-Clang
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:deoplete#sources#clang#libclang_path='/usr/lib/llvm-3.8/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header='/usr/lib/clang'
+" let g:ycm_python_binary_path = '/usr/bin/python2'
+let g:ycm_server_python_interpreter = '/usr/bin/python2'

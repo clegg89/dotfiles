@@ -204,6 +204,12 @@ run_ycm_install()
   action ./install.py ${build_flags}
 
   popd > /dev/null
+
+  pushd ~/.local/share/nvim/site/plugged/YouCompleteMe > /dev/null
+
+  action ./install.sh ${build_flags}
+
+  popd > /dev/null
 }
 
 compile_you_complete_me()
