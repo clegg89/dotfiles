@@ -3,4 +3,5 @@ if has("win32unix")
   Plug 'Rip-Rip/clang_complete', { 'for': ['cpp', 'c'] }
 elseif has("unix")
   Plug 'Valloric/YouCompleteMe'
+  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 endif
