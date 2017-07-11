@@ -427,8 +427,7 @@ call plug#begin(s:data_root . '/plugged')
 Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mileszs/ack.vim' " Search tool (grep)
-Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' } " Find files
-Plug 'vim-scripts/bufexplorer.zip', { 'on': 'BufExplorer' } " Visually show and select buffers
+Plug 'ctrlpvim/ctrlp.vim' " Find files
 Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' } " File tree explorer
 Plug 'wellle/targets.vim' " Additional objects (function arguments)
 Plug 'terryma/vim-expand-region' " Visually select increasingly larger regions
@@ -457,23 +456,11 @@ execute "source" s:config_root . '/plugin.vim'
 call plug#end()
 
 """"""""""""""""""""""""""""""
-" => bufExplorer plugin
-""""""""""""""""""""""""""""""
-let g:bufExplorerDefaultHelp=0
-let g:bufExplorerShowRelativePath=1
-let g:bufExplorerFindActive=1
-let g:bufExplorerSortBy='name'
-map <leader>o :BufExplorer<cr>
-
-""""""""""""""""""""""""""""""
 " => CTRL-P
 """"""""""""""""""""""""""""""
 let g:ctrlp_working_path_mode = 0
 
 let g:ctrlp_map = '<c-f>'
-map <leader>j :CtrlP<cr>
-map <c-b> :CtrlPBuffer<cr>
-
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
