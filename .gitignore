@@ -3,3 +3,4 @@ tmux/*
 vim/plugged
 vim/autoload
 local/share/*
+config/nvim/.*
