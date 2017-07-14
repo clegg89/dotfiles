@@ -55,7 +55,7 @@ plugins+=(git)
 if which rails > /dev/null; then
   plugins+=(rails)
 fi
-if which python --version > /dev/null; then
+if which python > /dev/null; then
   plugins+=(python)
 fi
 
@@ -67,7 +67,13 @@ source $ZSH/oh-my-zsh.sh
 
 if [[ -x /usr/local/bin/virtualenvwrapper.sh ]]; then
   export WORKON_HOME=${HOME}/.local/share/venvs
-  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+
+  if which python3 > /dev/null; then
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+  else
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+  fi
+
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 
   source /usr/local/bin/virtualenvwrapper.sh
