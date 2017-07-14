@@ -55,9 +55,20 @@ plugins+=(git)
 if which rails > /dev/null; then
   plugins+=(rails)
 fi
+if which python --version > /dev/null; then
+  plugins+=(python)
+fi
 
 # User configuration
 
 source $ZSH/oh-my-zsh.sh
 
 [[ -x /usr/bin/dircolors && -r ~/.dircolors ]] && eval "$(dircolors ~/.dircolors)"
+
+if [[ -x /usr/local/bin/virtualenvwrapper.sh ]]; then
+  export WORKON_HOME=${HOME}/.local/share/venvs
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+
+  source /usr/local/bin/virtualenvwrapper.sh
+fi
