@@ -93,38 +93,47 @@ set tm=500
 set foldcolumn=1
 
 " Cursor config
-if &term =~ '^xterm\|^rxvt\|^screen\|^nvim'
-  if &term =~ '^nvim'
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-  endif
+function! SetupCursorConfig()
+  " Whitelist supported terminals
+  if &term =~ '^xterm\|^rxvt\|^screen\|^nvim'
+    " let Wrapper = {args -> args}
 
-  " 1 or 0 -> blinking block
-  " 3 -> blinking underscore
-  " Recent versions of xterm (282 or above) also support
-  " 5 -> blinking vertical bar
-  " 6 -> solid vertical bar
-  if exists('$TMUX')
-    " blinking vertical bar
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-    " solid block
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-    let &t_IS = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-    " blinking underscore
-    if v:version > 704 || v:version == 704 && has('patch687')
-      let &t_SR = "\<Esc>Ptmux;\<Esc>\e[3 q\<Esc>\\"
+    function! Passthrough(args)
+      return a:args
+    endfunc
+    let Wrapper = function('Passthrough')
+
+    if exists('$TMUX')
+      " let Wrapper = {args -> '\<Esc>Ptmux;' . args . '\<Esc>\\'}
+      function! TmuxWrap(args)
+        return "\<Esc>Ptmux;" . a:args . "\<Esc>\\"
+      endfunction
+      let Wrapper = function('TmuxWrap')
     endif
-  else
+
+    " 1 or 0 -> blinking block
+    " 3 -> blinking underscore
+    " Recent versions of xterm (282 or above) also support
+    " 5 -> blinking vertical bar
+    " 6 -> solid vertical bar
+
     " blinking vertical bar
-    let &t_SI = "\<Esc>[5 q"
+    let &t_SI = Wrapper("\<Esc>[5 q")
     " solid block
-    let &t_EI = "\<Esc>[2 q"
-    let &t_IS = "\<Esc>[2 q"
+    let &t_EI = Wrapper("\<Esc>[2 q")
+    let &t_IS = Wrapper("\<Esc>[2 q")
     " blinking underscore
     if v:version > 704 || v:version == 704 && has('patch687')
-      let &t_SR = "\<Esc>[3 q"
+      let &t_SR = Wrapper("\<Esc>[3 q")
+    endif
+
+    delfunction Passthrough
+
+    if exists('TmuxWrap')
+      delfunction TmuxWrap
     endif
   endif
-endif
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -589,6 +598,8 @@ execute "source" s:config_root . '/plugin_config.vim'
 if filereadable(expand("~/.local/etc/vimrc.vim"))
   source ~/.local/etc/vimrc.vim
 endif
+
+delfunction SetupCursorConfig
 
 set exrc
 set secure

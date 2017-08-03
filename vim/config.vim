@@ -35,3 +35,6 @@ set hlsearch
 
 " Be smart when using tabs ;)
 set smarttab
+
+" Cursor Config
+call SetupCursorConfig()
