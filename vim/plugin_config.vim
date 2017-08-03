@@ -26,6 +26,7 @@ let g:clang_trailing_placeholder = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => YouCompleteMe
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ycm_server_python_interpreter = '/usr/bin/python2'
 " Have to copy defaults because we can't append. We've added ruby
 let g:ycm_filetype_blacklist = {
       \ 'tagbar' : 1,
@@ -40,3 +41,4 @@ let g:ycm_filetype_blacklist = {
       \ 'mail' : 1,
       \ 'ruby' : 1
       \}
+let g:ycm_key_invoke_completion = '<C-g>'
