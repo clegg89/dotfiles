@@ -433,6 +433,7 @@ execute "source" s:config_root . '/config.vim'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin(s:data_root . '/plugged')
 
+Plug 'tpope/vim-obsession' " Session management
 Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mileszs/ack.vim' " Search tool (grep)
