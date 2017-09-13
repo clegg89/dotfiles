@@ -36,6 +36,8 @@ if uname -r | grep -q 'Microsoft'; then
 
   # Add back in our whitelist
   PATH="${PATH}:${windir}:${windir}/System32:${windir}/System32/wbem:${windir}/System32/WindowsPowerShell/v1.0"
+
+  export DISPLAY=:0
 fi
 
 #####################################
