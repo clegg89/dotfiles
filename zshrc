@@ -60,6 +60,9 @@ if which python > /dev/null; then
 fi
 
 # User configuration
+unsetopt beep
+unsetopt hist_beep
+unsetopt list_beep
 
 source $ZSH/oh-my-zsh.sh
 
