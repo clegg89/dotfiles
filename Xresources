@@ -1,4 +1,3 @@
-urxvt*font: xft:DejaVu Sans Mono for Powerline:style=Bold:pixelsize=12
 !
 ! Generated with :
 ! XRDB2Xreources.py
@@ -43,3 +42,15 @@ urxvt*font: xft:DejaVu Sans Mono for Powerline:style=Bold:pixelsize=12
 *.colorBD:     #c5c8c6
 !*.colorIT:
 !*.colorUL:
+
+! Dynamically modify font size
+URxvt.perl-ext-common: ...,font-size
+
+URxvt.keysym.C-Up:     font-size:increase
+URxvt.keysym.C-Down:   font-size:decrease
+URxvt.keysym.C-S-Up:   font-size:incglobal
+URxvt.keysym.C-S-Down: font-size:decglobal
+URxvt.keysym.C-equal:  font-size:reset
+URxvt.keysym.C-slash:  font-size:show
+
+URxvt*font: xft:DejaVu Sans Mono for Powerline:style=Bold:pixelsize=12
