@@ -57,7 +57,7 @@ popd > /dev/null
 olddir=${dir}_old      # old dotfiles backup directory
 script=${0##*/}        # Script name
 install_blacklist="Desktop Downloads Templates Public Documents Music Pictures Videos"
-install_whitelist="fonts config/user-dirs.defaults config/nvim tmux vim bash_profile bashrc dircolors gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources zshenv zshrc"
+install_whitelist="fonts config/user-dirs.defaults config/nvim tmux vim bash_profile bashrc dircolors gdbinit gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources Xdefaults zshenv zshrc urxvt/ext/font-size"
 
 ##########
 
