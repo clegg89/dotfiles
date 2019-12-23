@@ -169,15 +169,15 @@ install_ycm_dependencies()
   if which apt-get > /dev/null
   then
     # Install dependencies using apt-get
-    action sudo apt-get --assume-yes install build-essential cmake python-dev python3-dev
+    action sudo apt-get --assume-yes install build-essential cmake python3-dev
   elif which dnf > /dev/null
   then
     # Install dependencies using dnf
-    action sudo dnf --assumeyes install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
+    action sudo dnf --assumeyes install automake gcc gcc-c++ kernel-devel cmake python3-devel
   elif which yum > /dev/null
   then
     # Install dependencies using yum
-    action sudo yum --assumeyes install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
+    action sudo yum --assumeyes install automake gcc gcc-c++ kernel-devel cmake python3-devel
   else
     echo "Unrecognized package manager, hopefully everything we need is here..."
   fi
