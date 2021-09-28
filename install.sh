@@ -159,7 +159,7 @@ install_fonts()
 
 run_vim_plugin_install()
 {
-  action vim +PlugInstall +qall
+  #action vim +PlugInstall +qall
   action nvim +PlugInstall +qall
   echo "Don't forget to update/install tmux plugins"
 }
@@ -210,22 +210,6 @@ run_ycm_install()
   action ./install.sh ${build_flags}
 
   popd > /dev/null
-}
-
-compile_you_complete_me()
-{
-  if [[ -e "${HOME}/.vim/plugged/YouCompleteMe" ]]
-  then
-    # YouCompleteMe was installed, try to finish the installation steps
-    if [[ "$(uname -o)" = "GNU/Linux" ]]
-    then
-      install_ycm_dependencies
-
-      run_ycm_install
-    else
-      echo "Unknown/Unsupported OS, not building YouCompleteMe"
-    fi
-  fi
 }
 
 copy_minttyrc()
@@ -298,8 +282,6 @@ install_dotfiles()
   install_fonts
 
   run_vim_plugin_install
-
-  compile_you_complete_me
 
   copy_minttyrc
 
