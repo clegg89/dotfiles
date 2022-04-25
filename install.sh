@@ -56,20 +56,9 @@ popd > /dev/null
 
 olddir=${dir}_old      # old dotfiles backup directory
 script=${0##*/}        # Script name
-install_blacklist="Desktop Downloads Templates Public Documents Music Pictures Videos"
-install_whitelist="fonts config/user-dirs.defaults config/nvim tmux vim bash_profile bashrc dircolors gdbinit gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources Xdefaults zshenv zshrc urxvt/ext/font-size"
+install_whitelist="fonts config/nvim tmux vim bash_profile bashrc dircolors gdbinit gitconfig gitignore_global inputrc minttyrc tmux.conf vimrc Xresources Xdefaults zshenv urxvt/ext/font-size"
 
 ##########
-
-install_oh_my_zsh()
-{
-  local ZSH="${HOME}/.oh-my-zsh"
-
-  # The install script launches a zsh shell and does other unnecessary stuff. Just run the git command
-  # action 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
-
-  [[ -e "${ZSH}" ]] || action git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ${ZSH}
-}
 
 install_submodules()
 {
@@ -81,12 +70,10 @@ install_submodules()
   popd > /dev/null
 }
 
-install_vim_and_tmux_plugins()
+install_tmux_plugins()
 {
   pushd ${dir} > /dev/null
 
-  # vim and tmux Plugin managers
-  [[ -e "vim/bundle" ]] && action rm -rf vim/bundle
   [[ -e "tmux/plugins/tpm" ]] || action git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm
 
   popd > /dev/null
@@ -159,57 +146,9 @@ install_fonts()
 
 run_vim_plugin_install()
 {
-  #action vim +PlugInstall +qall
-  action nvim +PlugInstall +qall
+  [[ -x "$(command -v vim)" ]] && action vim +PlugInstall +qall
+  [[ -x "$(command -v nvim)" ]] && action nvim +PlugInstall +qall
   echo "Don't forget to update/install tmux plugins"
-}
-
-install_ycm_dependencies()
-{
-  if which apt-get > /dev/null
-  then
-    # Install dependencies using apt-get
-    action sudo apt-get --assume-yes install build-essential cmake python-dev python3-dev
-  elif which dnf > /dev/null
-  then
-    # Install dependencies using dnf
-    action sudo dnf --assumeyes install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
-  elif which yum > /dev/null
-  then
-    # Install dependencies using yum
-    action sudo yum --assumeyes install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
-  else
-    echo "Unrecognized package manager, hopefully everything we need is here..."
-  fi
-}
-
-determine_ycm_build_flags()
-{
-  local build_flags="--clang-completer"
-
-  if which node > /dev/null; then
-    # Javascript completion
-    build_flags="${build_flags} --tern-completer"
-  fi
-
-  echo ${build_flags}
-}
-
-run_ycm_install()
-{
-  local build_flags=$(determine_ycm_build_flags)
-
-  pushd ~/.vim/plugged/YouCompleteMe > /dev/null
-
-  action ./install.py ${build_flags}
-
-  popd > /dev/null
-
-  pushd ~/.local/share/nvim/site/plugged/YouCompleteMe > /dev/null
-
-  action ./install.sh ${build_flags}
-
-  popd > /dev/null
 }
 
 copy_minttyrc()
@@ -240,13 +179,6 @@ install_dirs()
   done
 }
 
-install_home_dirs()
-{
-  local dir_list="devel documents downloads explore build"
-
-  install_dirs "${HOME}" "${dir_list}"
-}
-
 install_local_dirs()
 {
   local dir_list="bin sbin include lib src etc share"
@@ -254,25 +186,8 @@ install_local_dirs()
   install_dirs "${HOME}/.local" "${dir_list}"
 }
 
-install_xdg_dirs()
-{
-  if which xdg-user-dirs-update > /dev/null; then
-    action xdg-user-dirs-update
-  fi
-}
-
-clean_home_dir()
-{
-  for file in ${install_blacklist}; do
-    # Do not force remove. If the directory is empty we want to leave it
-    backup_if_exists ${HOME}/${file}
-  done
-}
-
 install_dotfiles()
 {
-  install_oh_my_zsh
-
   install_submodules
 
   install_vim_and_tmux_plugins
@@ -285,13 +200,7 @@ install_dotfiles()
 
   copy_minttyrc
 
-  install_home_dirs
-
   install_local_dirs
-
-  install_xdg_dirs
-
-  clean_home_dir
 }
 
 uninstall_dotfiles()
