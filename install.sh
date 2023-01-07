@@ -63,7 +63,7 @@ install_whitelist="fonts config/nvim tmux vim dircolors gdbinit gitconfig gitign
 install_oh_my_zsh()
 {
   # The --unattended option prevents installing their .zshrc and also prevents their chsh command
-  s[[ -e "${HOME}/.oh-my-zsh" ]] || action sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "--unattended"
+  [[ -e "${HOME}/.oh-my-zsh" ]] || action curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash -s -- --unattended
 }
 
 install_submodules()
