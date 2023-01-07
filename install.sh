@@ -56,18 +56,14 @@ popd > /dev/null
 
 olddir=${dir}_old      # old dotfiles backup directory
 script=${0##*/}        # Script name
-install_whitelist="fonts config/nvim tmux vim gdbinit gitconfig gitignore_global minttyrc tmux.conf vimrc Xresources Xdefaults zshenv urxvt/ext/font-size"
+install_whitelist="fonts config/nvim tmux vim dircolors gdbinit gitconfig gitignore_global minttyrc tmux.conf vimrc Xresources Xdefaults zshenv zshrc urxvt/ext/font-size"
 
 ##########
 
 install_oh_my_zsh()
 {
-  local ZSH="${HOME}/.oh-my-zsh"
-
-  # The install script launches a zsh shell and does other unnecessary stuff. Just run the git command
-  # action 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
-
-  [[ -e "${ZSH}" ]] || action git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ${ZSH}
+  # The --unattended option prevents installing their .zshrc and also prevents their chsh command
+  s[[ -e "${HOME}/.oh-my-zsh" ]] || action sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "--unattended"
 }
 
 install_submodules()
@@ -202,7 +198,7 @@ install_dotfiles()
 
   install_submodules
 
-  install_vim_and_tmux_plugins
+  install_tmux_plugins
 
   backup_and_link_configs
 
