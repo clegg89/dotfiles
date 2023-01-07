@@ -60,6 +60,16 @@ install_whitelist="fonts config/nvim tmux vim gdbinit gitconfig gitignore_global
 
 ##########
 
+install_oh_my_zsh()
+{
+  local ZSH="${HOME}/.oh-my-zsh"
+
+  # The install script launches a zsh shell and does other unnecessary stuff. Just run the git command
+  # action 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
+
+  [[ -e "${ZSH}" ]] || action git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ${ZSH}
+}
+
 install_submodules()
 {
   pushd ${dir} > /dev/null
@@ -188,6 +198,8 @@ install_local_dirs()
 
 install_dotfiles()
 {
+  install_oh_my_zsh
+
   install_submodules
 
   install_vim_and_tmux_plugins
