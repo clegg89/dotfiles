@@ -69,6 +69,7 @@ source $ZSH/oh-my-zsh.sh
 [[ -x /usr/bin/dircolors && -r ~/.dircolors ]] && eval "$(dircolors ~/.dircolors)"
 
 if [[ -x /usr/local/bin/virtualenvwrapper.sh ]]; then
+  ## Old Ubuntu setup, not sure if still relevant
   export WORKON_HOME=${HOME}/.local/share/venvs
 
   if which python3 > /dev/null; then
@@ -80,4 +81,9 @@ if [[ -x /usr/local/bin/virtualenvwrapper.sh ]]; then
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 
   source /usr/local/bin/virtualenvwrapper.sh
+elif [[ -x /usr/bin/virtualenvwrapper.sh ]]; then
+  # Arch
+  # https://wiki.archlinux.org/title/Python/Virtual_environment#virtualenvwrapper
+  export WORKON_HOME=${HOME}/.virtualenvs
+  source /usr/bin/virtualenvwrapper_lazy.sh
 fi
