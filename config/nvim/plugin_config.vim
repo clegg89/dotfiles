@@ -23,3 +23,10 @@ let g:ycm_filetype_blacklist = {
       \ 'ruby' : 1
       \}
 let g:ycm_key_invoke_completion = '<C-g>'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => SnipMate
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:snipMate = { 'snippet_version' : 1 }
+

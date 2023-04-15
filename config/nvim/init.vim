@@ -282,12 +282,14 @@ map <leader>pp :setlocal paste!<cr>
 
 " Tag settings
 set tags=./tags
-set cscopetag
-if filereadable("cscope.out")
-  try
-    cscope add cscope.out
-  catch
-  endtry
+if has('cscope')
+  set cscopetag
+  if filereadable("cscope.out")
+    try
+      cscope add cscope.out
+    catch
+    endtry
+  endif
 endif
 
 "Cscope mappings
