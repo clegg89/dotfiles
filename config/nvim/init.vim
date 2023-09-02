@@ -437,12 +437,9 @@ Plug 'scrooloose/syntastic' " Syntax checking
 Plug 'aperezdc/vim-template' " Filetype templates
 Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'garbas/vim-snipmate' " Code snippets
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' } " Ruby plugin
-Plug 'tpope/vim-rails', { 'for': 'ruby' } " Rails plugin
-Plug 'embear/vim-localvimrc'
+Plug 'embear/vim-localvimrc' " Local configuration
 Plug 'vim-scripts/Arduino-syntax-file'
-
-execute "source" s:config_root . '/plugin.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Code Completion
 
 call plug#end()
 
