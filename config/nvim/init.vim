@@ -42,6 +42,9 @@ else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
+" Ignore case when opening files
+set wildignorecase
+
 " Always show current position
 set ruler
 
@@ -134,6 +137,32 @@ function! SetupCursorConfig()
     endif
   endif
 endfunction
+
+function! s:GetNvimVersion()
+  redir => l:version
+  silent! version
+  redir END
+  " \zs with set the start of the match at that location.
+  " version will output 'NVIM v0.2.0', so the regex will
+  " match starting after the 'v' and matches anything until
+  " a new line
+  "
+  " See :h /\zs
+  return matchstr(l:version, 'NVIM v\zs[^\n]*')
+endfunction
+
+if &term =~ '^xterm\|^rxvt\|^screen\|^nvim'
+  if &term =~ '^nvim'
+    if s:GetNvimVersion() < '0.2.0'
+      " Older versions of nvim behave similar to vim
+      let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+
+      call SetupCursorConfig()
+    else
+      let &guicursor='n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor'
+    endif
+  endif
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -380,34 +409,10 @@ au BufNewFile,BufRead *.mako set ft=mako
 
 au FileType python map <buffer> F :set foldmethod=indent<cr>
 
-au FileType python map <buffer> <leader>1 /class
-au FileType python map <buffer> <leader>2 /def
-au FileType python map <buffer> <leader>C ?class
-au FileType python map <buffer> <leader>D ?def
-
-""""""""""""""""""""""""""""""
-" => JavaScript section
-"""""""""""""""""""""""""""""""
-au FileType javascript imap <c-t> $log();<esc>hi
-au FileType javascript imap <c-a> alert();<esc>hi
-
-""""""""""""""""""""""""""""""
-" => CoffeeScript section
-"""""""""""""""""""""""""""""""
-au FileType gitcommit call setpos('.', [0, 1, 1, 0])
-
 """"""""""""""""""""""""""""""
 " => Scheme section
 """""""""""""""""""""""""""""""
 au BufNewFile,BufRead *.sch set syntax=scheme
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => CSS section
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-" vim/neovim specific config
-execute "source" s:config_root . '/config.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Loading
@@ -441,6 +446,34 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " Code Completion
 call plug#end()
 
 """"""""""""""""""""""""""""""
+" => CoC Completion
+""""""""""""""""""""""""""""""
+" use <tab> to trigger completion and navigate to the next complete item
+function! CheckBackspace() abort
+  " Returns true if we're at the beginning of a line or in front of backspace
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" <tab> goes goes forward in selection
+inoremap <silent><expr> <Tab>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+" <s-tab> goes backward in selection
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+
+" <cr> selects an item
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+""""""""""""""""""""""""""""""
 " => CTRL-P
 """"""""""""""""""""""""""""""
 let g:ctrlp_working_path_mode = 0
@@ -449,11 +482,15 @@ let g:ctrlp_map = '<c-f>'
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
+map <leader>j :CtrlP<cr>
+map <leader>o :CtrlPBuffer<cr>
+
 """"""""""""""""""""""""""""""
 " => snipMate (beside <TAB> support <CTRL-j>)
 """"""""""""""""""""""""""""""
 ino <c-j> <c-r>=snipMate#TriggerSnippet()<cr>
 snor <c-j> <esc>i<right><c-r>=snipMate#TriggerSnippet()<cr>
+let g:snipMate = { 'snippet_version' : 1 }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
@@ -567,8 +604,6 @@ endfunc
 func! GetComparatorClass()
   return CamelCase(Classify(GetComparatorFile()))
 endfunc
-
-execute "source" s:config_root . '/plugin_config.vim'
 
 " Local extensions
 if filereadable(expand("~/.local/etc/vimrc.vim"))
