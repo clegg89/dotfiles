@@ -429,16 +429,13 @@ Plug 'tomtom/tlib_vim' " Utilities, needed by snipmate
 Plug 'MarcWeber/vim-addon-mw-utils' " Utilities, needed by snipmate
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'airblade/vim-gitgutter' " Git diff gutter
-Plug 'terryma/vim-multiple-cursors' " Sublime Text style multiple selections, not working
 Plug 'tpope/vim-obsession' " Continuosly update session files
 Plug 'tmux-plugins/vim-tmux' " tmux.conf sytnax highlighting
 Plug 'christoomey/vim-tmux-navigator' " Switch between tmux panes and vim panes seamlessly
-Plug 'scrooloose/syntastic' " Syntax checking
 Plug 'aperezdc/vim-template' " Filetype templates
 Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'garbas/vim-snipmate' " Code snippets
 Plug 'embear/vim-localvimrc' " Local configuration
-Plug 'vim-scripts/Arduino-syntax-file'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Code Completion
 
 call plug#end()
