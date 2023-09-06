@@ -164,6 +164,13 @@ if &term =~ '^xterm\|^rxvt\|^screen\|^nvim'
   endif
 endif
 
+" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
+" delays and poor user experience
+set updatetime=300
+
+" Always show the signcolumn (helps with coc diagnostics
+set signcolumn=yes
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -316,20 +323,20 @@ if has('cscope')
   if filereadable("cscope.out")
     try
       cscope add cscope.out
+
+      "Cscope mappings
+      nmap s :cs find s =expand("<cword>")
+      nmap g :cs find g =expand("<cword>")
+      nmap c :cs find c =expand("<cword>")
+      nmap t :cs find t =expand("<cword>")
+      nmap e :cs find e =expand("<cword>")
+      nmap f :cs find f =expand("<cfile>")
+      nmap i :cs find i ^=expand("<cfile>")$
+      nmap d :cs find d =expand("<cword>")
     catch
     endtry
   endif
 endif
-
-"Cscope mappings
-nmap s :cs find s =expand("<cword>")
-nmap g :cs find g =expand("<cword>")
-nmap c :cs find c =expand("<cword>")
-nmap t :cs find t =expand("<cword>")
-nmap e :cs find e =expand("<cword>")
-nmap f :cs find f =expand("<cfile>")
-nmap i :cs find i ^=expand("<cfile>")$
-nmap d :cs find d =expand("<cword>")
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -472,6 +479,46 @@ if has('nvim')
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Autocommand group pattern, see https://learnvimscriptthehardway.stevelosh.com/chapters/14.html
+" basically prevents vim from redefining these commands repeatedly when reloading the source file
+augroup cocgroup
+  " Clear all previous group cmds
+  autocmd!
+  " Highlight the symbol and its references when holding the cursor
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
 """"""""""""""""""""""""""""""
 " => CTRL-P
