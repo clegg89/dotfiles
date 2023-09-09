@@ -449,8 +449,19 @@ Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'garbas/vim-snipmate' " Code snippets
 Plug 'embear/vim-localvimrc' " Local configuration
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Code Completion
+Plug 'puremourning/vimspector' " Debugging
 
 call plug#end()
+
+""""""""""""""""""""""""""""""
+" => Vimspector
+""""""""""""""""""""""""""""""
+" mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
+
+" for normal mode - the word under the cursor
+nmap <leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <leader>di <Plug>VimspectorBalloonEval
 
 """"""""""""""""""""""""""""""
 " => CoC Completion
