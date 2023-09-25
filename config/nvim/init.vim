@@ -429,27 +429,36 @@ call plug#begin(s:data_root . '/plugged')
 Plug 'tpope/vim-obsession' " Session management
 Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'vim-airline/vim-airline-themes'
-Plug 'mileszs/ack.vim' " Search tool (grep)
 Plug 'ctrlpvim/ctrlp.vim' " Find files
 Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' } " File tree explorer
 Plug 'wellle/targets.vim' " Additional objects (function arguments)
-Plug 'terryma/vim-expand-region' " Visually select increasingly larger regions
-Plug 'michaeljsmith/vim-indent-object' " Provides objects for indentations
-Plug 'christoomey/vim-sort-motion' " Motions for sorting
 Plug 'tpope/vim-surround' " delete, change, add 'surroundings' (quotes, brackets, etc.)
 Plug 'tomtom/tlib_vim' " Utilities, needed by snipmate
 Plug 'MarcWeber/vim-addon-mw-utils' " Utilities, needed by snipmate
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'airblade/vim-gitgutter' " Git diff gutter
+
+" Potential neovim replacement: neovim-session-manager
 Plug 'tpope/vim-obsession' " Continuosly update session files
+
+" Potential neovim replacement: tmux.nvim
 Plug 'tmux-plugins/vim-tmux' " tmux.conf sytnax highlighting
+
 Plug 'christoomey/vim-tmux-navigator' " Switch between tmux panes and vim panes seamlessly
 Plug 'aperezdc/vim-template' " Filetype templates
 Plug 'tpope/vim-commentary' " Toggle comments
+
+" Possible neovim replacement: nvim-snippy
 Plug 'garbas/vim-snipmate' " Code snippets
+
 Plug 'embear/vim-localvimrc' " Local configuration
+" Even though it says .nvim it works for vim too
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Code Completion
-Plug 'puremourning/vimspector' " Debugging
+if has('nvim')
+  Plug 'nvim-lua/plenary.nvim' " Required for other plugins
+else
+  Plug 'puremourning/vimspector' " Debugging
+endif
 
 call plug#end()
 
