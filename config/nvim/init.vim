@@ -1,3 +1,11 @@
+" Note: For a long time I have attempted to keep this compatible with both VIM and NeoVim, since
+" when I started this script NeoVim was relatively young and not as easy to install on most platforms.
+" However, at this point the project is fairly established, easy to install, and I generally like it
+" more. NeoVim also transitioned to using lua as a first class language. As such, I'll be slowly
+" migrating/copying this script to lua, and generally focusing more on NeoVim
+"
+" See the bottom of this file, where I load the eventual init.lua file
+
 " Required by Vim, ignored by NeoVim
 set nocompatible
 
@@ -437,26 +445,21 @@ Plug 'tomtom/tlib_vim' " Utilities, needed by snipmate
 Plug 'MarcWeber/vim-addon-mw-utils' " Utilities, needed by snipmate
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'airblade/vim-gitgutter' " Git diff gutter
-
-" Potential neovim replacement: neovim-session-manager
-Plug 'tpope/vim-obsession' " Continuosly update session files
-
-" Potential neovim replacement: tmux.nvim
-Plug 'tmux-plugins/vim-tmux' " tmux.conf sytnax highlighting
-
-Plug 'christoomey/vim-tmux-navigator' " Switch between tmux panes and vim panes seamlessly
 Plug 'aperezdc/vim-template' " Filetype templates
 Plug 'tpope/vim-commentary' " Toggle comments
-
-" Possible neovim replacement: nvim-snippy
 Plug 'garbas/vim-snipmate' " Code snippets
-
 Plug 'embear/vim-localvimrc' " Local configuration
-" Even though it says .nvim it works for vim too
+" Note: NeoVim supports native LSP, so we may want to look into that
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Code Completion
+
 if has('nvim')
   Plug 'nvim-lua/plenary.nvim' " Required for other plugins
+  Plug 'aserowy/tmux.nvim' " tmux integration
+  Plug 'Civitasv/cmake-tools.nvim' " CMake integration
+  Plug 'mfussenegger/nvim-dap' " Debugging
 else
+  Plug 'tmux-plugins/vim-tmux' " tmux.conf sytnax highlighting
+  Plug 'christoomey/vim-tmux-navigator' " Switch between tmux panes and vim panes seamlessly
   Plug 'puremourning/vimspector' " Debugging
 endif
 
@@ -681,3 +684,5 @@ delfunction SetupCursorConfig
 
 set exrc
 set secure
+
+lua require('migration')
