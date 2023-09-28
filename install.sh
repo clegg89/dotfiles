@@ -56,7 +56,7 @@ popd > /dev/null
 
 olddir=${dir}_old      # old dotfiles backup directory
 script=${0##*/}        # Script name
-install_whitelist="fonts config/nvim tmux vim dircolors gdbinit gitconfig gitignore_global minttyrc tmux.conf vimrc Xresources Xdefaults zshenv zshrc urxvt/ext/font-size"
+install_whitelist="config/nvim tmux vim dircolors gdbinit gitconfig gitignore_global minttyrc tmux.conf vimrc Xresources Xdefaults zshenv zshrc urxvt/ext/font-size"
 
 ##########
 
@@ -140,14 +140,7 @@ backup_and_link_configs()
 
 install_fonts()
 {
-  if command -v fc-cache @>/dev/null
-  then
-    echo -n "Refreshing Fonts, this may take some time..."
-    action fc-cache -f
-    echo " Done"
-  else
-    echo "fc-cache command not found, cannot load fonts"
-  fi
+  echo "Be sure to install powerline-fonts"
 }
 
 run_vim_plugin_install()

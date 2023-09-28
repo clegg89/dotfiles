@@ -53,4 +53,4 @@ URxvt.keysym.C-S-Down: font-size:decglobal
 URxvt.keysym.C-equal:  font-size:reset
 URxvt.keysym.C-slash:  font-size:show
 
-URxvt*font: xft:DejaVu Sans Mono for Powerline:style=Bold:pixelsize=12
+URxvt*font: xft:DejaVu Sans Mono:pixelsize=12,xft:PowerlineSymbols
