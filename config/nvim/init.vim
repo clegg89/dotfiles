@@ -237,9 +237,8 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+" Map <Space> to / (search). Not using ctrl-space as it's the tmux prefix
 map <space> /
-map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -439,6 +438,7 @@ Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim' " Find files
 Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' } " File tree explorer
+Plug 'tmux-plugins/vim-tmux' " tmux.conf sytnax highlighting
 Plug 'wellle/targets.vim' " Additional objects (function arguments)
 Plug 'tpope/vim-surround' " delete, change, add 'surroundings' (quotes, brackets, etc.)
 Plug 'tomtom/tlib_vim' " Utilities, needed by snipmate
@@ -458,7 +458,6 @@ if has('nvim')
   Plug 'Civitasv/cmake-tools.nvim' " CMake integration
   Plug 'mfussenegger/nvim-dap' " Debugging
 else
-  Plug 'tmux-plugins/vim-tmux' " tmux.conf sytnax highlighting
   Plug 'christoomey/vim-tmux-navigator' " Switch between tmux panes and vim panes seamlessly
   Plug 'puremourning/vimspector' " Debugging
 endif

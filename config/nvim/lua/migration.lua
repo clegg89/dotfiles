@@ -66,3 +66,5 @@ require("cmake-tools").setup {
   },
 }
 
+require('tmux').setup()
+
