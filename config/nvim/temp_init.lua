@@ -36,9 +36,15 @@ vim.o.relativenumber = true
 
 -- Unless we are jumping multiple lines, treat wrapped lines
 -- as multiple lines
-vim.keymap.set("n", "j (v:count == 0 ? 'gj' : 'j')",
+local function wrap_movement(map)
+  return function ()
+    return (vim.v.count == 0 and 'g' .. map or map)
+  end
+end
+
+vim.keymap.set("n", "j", wrap_movement('j'),
   { noremap = true, silent = true, expr = true })
-vim.keymap.set("n", "k (v:count == 0 ? 'gk' : 'k')",
+vim.keymap.set("n", "k", wrap_movement('k'),
   { noremap = true, silent = true, expr = true })
 
 -- A buffer becomes hidden when it is abandoned
@@ -121,4 +127,85 @@ vim.o.tw=500
 vim.o.ai = true --Auto indent
 vim.o.si = true --Smart indent
 vim.o.wrap = true --Wrap lines
+
+------------------------------
+-- Visual mode related
+------------------------------
+-- Visual mode pressing * or # searches for the current selection
+-- Super useful! From an idea by Michael Naumann
+-- TODO I don't really use this feature but it would be cool to have
+-- it's going to take some work to migrate it from vimscript to lua
+-- and I don't want to do that right now. Here's the full vim code
+--
+-- function! VisualSelection(direction, extra_filter) range
+--     let l:saved_reg = @" " Assuming this saves off the anonymous register
+--     execute "normal! vgvy" " Not sure what this is doing
+-- 
+--     let l:pattern = escape(@", '\\/.*$^~[]') " Weird regex voodoo
+--     let l:pattern = substitute(l:pattern, "\n$", "", "") " Guessing get rid of newlines?
+-- 
+--     if a:direction == 'gv'
+--         call CmdLine("Ag \"" . l:pattern . "\" " )
+--     elseif a:direction == 'replace'
+--         call CmdLine("%s" . '/'. l:pattern . '/')
+--     endif
+-- 
+--     " Restore registers?
+--     let @/ = l:pattern
+--     let @" = l:saved_reg
+-- endfunction
+--
+-- vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+-- vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+---------------------------------------------------------------
+-- Moving around, tabs, windows and buffers
+---------------------------------------------------------------
+-- Map <Space> to / (search). Not using ctrl-space as it's the tmux prefix
+vim.keymap.set('', '<space>', '/')
+
+-- Disable highlight when <leader><cr> is pressed
+vim.keymap.set('', '<leader><cr>', ':noh<cr>', { silent = true })
+
+-- Close the current buffer
+-- vim.keymap.set('', '<leader>bd'
+
+-- Close all the buffers
+vim.keymap.set('', '<leader>ba', ':bufdo bd<cr>')
+
+-- Move around buffers
+vim.keymap.set('', '<leader>l', ':bnext<cr>')
+vim.keymap.set('', '<leader>h', ':bprevious<cr>')
+
+-- Useful mappings for managing tabs
+vim.keymap.set('', '<leader>tn', ':tabnew<cr>')
+vim.keymap.set('', '<leader>to', ':tabonly<cr>')
+vim.keymap.set('', '<leader>tc', ':tabclose<cr>')
+vim.keymap.set('', '<leader>tm', ':tabmove<cr>')
+vim.keymap.set('', '<leader>t<leader>', ':tabnext<cr>')
+
+-- Let 'tl' toggle between this and the last accessed tab
+vim.g.lasttab = 1
+vim.keymap.set('n', '<leader>tl', function () vim.cmd.tabnext(vim.g.lasttab) end)
+vim.api.nvim_create_autocmd('TabLeave', {
+  pattern = '*',
+  callback = function () vim.g.lasttab = vim.cmd.tabpagenr() end
+})
+
+-- Opens a new tab with the current buffer's path
+-- Super useful when editing files in the same directory
+vim.keymap.set('', '<leader>te', '<c-r>=expand("%:p:h")<cr>/')
+
+-- Switch CWD to the directory of the open buffer
+vim.keymap.set('', '<leader>cd', ':cd %:p:h<cr>:pwd<cr>')
+
+-- Specify the behavior when switching between buffers
+vim.opt.switchbuf = { 'useopen', 'usetab', 'newtab' }
+vim.o.stal = 2
+
+-- Retrun to the last edit position when opening files (You want this!)
+vim.api.nvim_create_autocmd('BufReadPost', {
+  pattern = '*',
+  command = [[if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
+})
 
