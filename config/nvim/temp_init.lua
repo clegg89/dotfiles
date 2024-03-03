@@ -203,9 +203,49 @@ vim.keymap.set('', '<leader>cd', ':cd %:p:h<cr>:pwd<cr>')
 vim.opt.switchbuf = { 'useopen', 'usetab', 'newtab' }
 vim.o.stal = 2
 
--- Retrun to the last edit position when opening files (You want this!)
+-- Return to the last edit position when opening files (You want this!)
 vim.api.nvim_create_autocmd('BufReadPost', {
   pattern = '*',
   command = [[if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
 })
+
+------------------------------
+-- Status line
+------------------------------
+-- Always show the status line
+vim.o.laststatus = 2
+
+---------------------------------------------------------------
+-- Editing mappings
+---------------------------------------------------------------
+-- Remap VIM 0 to first non-blank character
+vim.keymap.set('', '0', '^')
+
+-- Move a line of text using ALT+[jk] or Command+[jk] on mac
+vim.keymap.set("n", "<M-j>", "mz:m+<cr>`z")
+vim.keymap.set("n", "<M-k>", "mz:m-2<cr>`z")
+vim.keymap.set("v", "<M-j>", ":m'>+<cr>`<my`>mzgv`yo`z")
+vim.keymap.set("v", "<M-k>", ":m'<-2<cr>`>my`<mzgv`yo`z")
+
+-- Delete trailing white space on save, useful for Python and CoffeeScript ;)
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  command = [[%s/\s\+$//ge]],
+})
+
+---------------------------------------------------------------
+-- Misc
+---------------------------------------------------------------
+-- Remove the Windows ^M - when the encodings gets messed up
+vim.keymap.set('', '<leader>m', "mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm",
+  { noremap = true })
+
+-- Quickly open a buffer for scribble
+vim.keymap.set('', '<leader>q', ':e ~/buffer<cr>')
+
+-- Quickly open a markdown buffer for scribble
+vim.keymap.set('', '<leader>x', ':e ~/buffer.md<cr>')
+
+-- Toggle paste mode on and off
+vim.keymap.set('', '<leader>pp', ':setlocal paste!<cr>')
 
