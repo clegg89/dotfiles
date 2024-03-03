@@ -168,6 +168,30 @@ vim.keymap.set('', '<space>', '/')
 vim.keymap.set('', '<leader><cr>', ':noh<cr>', { silent = true })
 
 -- Close the current buffer
+local function bufClose()
+  -- Don't close window when deleting a buffer
+  local currentBuf = vim.api.nvim_get_current_buf()
+  local altBuf = vim.fn.bufnr('#')
+
+  if vim.api.nvim_buf_is_loaded(altBuf) then
+    vim.api.nvim_set_current_buf(altBuf)
+  else
+    vim.cmd.bnext()
+  end
+
+  if vim.api.nvim_get_current_buf() == currentBuf then
+    vim.cmd.new()
+  end
+
+  if vim.api.nvim_buf_is_loaded(currentBuf) then
+    vim.cmd(string.format('bdelete! %d', currentBuf))
+  end
+
+  vim.cmd.tabclose()
+  vim.cmd.tabp()
+end
+vim.keymap.set('', '<leader>bd', bufClose)
+
 -- vim.keymap.set('', '<leader>bd'
 
 -- Close all the buffers
@@ -248,4 +272,21 @@ vim.keymap.set('', '<leader>x', ':e ~/buffer.md<cr>')
 
 -- Toggle paste mode on and off
 vim.keymap.set('', '<leader>pp', ':setlocal paste!<cr>')
+
+---------------------------------------------------------------
+-- Turn persistent undo on
+--   means that you can undo even when you close a buffer/VIM
+---------------------------------------------------------------
+vim.opt.undodir = { 's:data_root', '.', '/undo' }
+vim.o.undofile = true
+
+---------------------------------------------------------------
+-- Command mode related
+---------------------------------------------------------------
+-- Bash like keys for the command line
+vim.keymap.set('c', '<C-A>', '<Home>', { noremap = true })
+vim.keymap.set('c', '<C-E>', '<End>', { noremap = true })
+vim.keymap.set('c', '<C-K>', '<C-U>', { noremap = true })
+vim.keymap.set('c', '<C-P>', '<Up>', { noremap = true })
+vim.keymap.set('c', '<C-N>', '<Down>', { noremap = true })
 
