@@ -256,6 +256,18 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   command = [[%s/\s\+$//ge]],
 })
 
+-- Diagnostics
+vim.diagnostic.config {
+  virtual_text = false,
+  update_in_insert = true,
+}
+
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>Q', vim.diagnostic.setqflist)
+
 ---------------------------------------------------------------
 -- Misc
 ---------------------------------------------------------------
