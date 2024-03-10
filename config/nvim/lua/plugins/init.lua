@@ -33,7 +33,12 @@ return {
     -- install jsregexp (optional!).
     build = "make install_jsregexp"
   },
-  'embear/vim-localvimrc', -- Local configuration => nvim-config-local
+  {
+    'klen/nvim-config-local',
+    config = function()
+      require('config-local').setup()
+    end
+  },
   {
     'aserowy/tmux.nvim', -- tmux integration
     config = function()
