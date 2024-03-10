@@ -12,9 +12,12 @@ return {
           })
       end
   },
-  -- gitsigns.nvim
-  'tpope/vim-fugitive', -- Git wrapper
-  'airblade/vim-gitgutter', -- Git diff gutter
+  {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
+  },
   'aperezdc/vim-template', -- Filetype templates => esqueleto.nvim
   {
       'numToStr/Comment.nvim',
