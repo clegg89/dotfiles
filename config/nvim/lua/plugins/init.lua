@@ -1,9 +1,5 @@
 return {
   'tpope/vim-obsession', -- Session management => auto-session
-  'vim-airline/vim-airline', -- Airline status bar => lualine
-  'vim-airline/vim-airline-themes',
-  'ctrlpvim/ctrlp.vim', -- Find files => telescope
-  'scrooloose/nerdtree', -- File Tree Explorer => neo-tree
   'tmux-plugins/vim-tmux', -- tmux.conf sytnax highlighting KEEP
   'wellle/targets.vim', -- Additional objects (function arguments) KEEP
   {
