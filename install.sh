@@ -25,7 +25,7 @@ usage()
   Usage ${0##*/} [-h|--help] [-u|--uninstall] [-d|--debug]
 
   Install or uninstall dotfiles to home directory.
-  
+
   Options:
   -h, --help        Display this help message.
   -u, --uninstall  Undo a previous install instead of installing.
@@ -145,8 +145,9 @@ install_fonts()
 
 run_vim_plugin_install()
 {
-  [[ -x "$(command -v vim)" ]] && action vim +PlugInstall +qall
-  [[ -x "$(command -v nvim)" ]] && action nvim +PlugInstall +qall
+  # TODO med We switched plugin managers so fix this
+  # [[ -x "$(command -v vim)" ]] && action vim +PlugInstall +qall
+  # [[ -x "$(command -v nvim)" ]] && action nvim +PlugInstall +qall
   echo "Don't forget to update/install tmux plugins"
 }
 
