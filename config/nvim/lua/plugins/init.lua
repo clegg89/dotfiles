@@ -35,7 +35,12 @@ return {
     build = "make install_jsregexp"
   },
   'embear/vim-localvimrc', -- Local configuration => nvim-config-local
-  'aserowy/tmux.nvim', -- tmux integration
+  {
+    'aserowy/tmux.nvim', -- tmux integration
+    config = function()
+      require('tmux').setup()
+    end
+  },
   'mfussenegger/nvim-dap', -- Debugging
 }
 

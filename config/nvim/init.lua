@@ -1,8 +1,7 @@
--- Bootstrap plugin manager (vim-plug, lazy.nvim?)
-
 ---------------------------------------------------------------
 -- General
 ---------------------------------------------------------------
+local data_root = vim.fn.stdpath("data")
 -- Change map leader to comma: ',' for easier leader mapping
 vim.g.mapleader = ","
 
@@ -51,7 +50,7 @@ vim.keymap.set("n", "k", wrap_movement('k'),
 vim.o.hid = true
 
 -- Configure other characters to move across lines
-for opt in {'<','>','h','l'} do table.insert(vim.opt.whichwrap, opt) end
+for opt in pairs({'<','>','h','l'}) do table.insert(vim.opt.whichwrap, opt) end
 
 -- Ignore case when searching
 vim.o.ignorecase = true
@@ -79,7 +78,7 @@ vim.o.novisualbell = true
 vim.o.tm = 500
 
 -- Add a bit extra margin to the left
-vim.o.foldcolumn = 1
+vim.o.foldcolumn = '1'
 
 -- Setup cursor
 -- This was previously a lot more complicated, but we're just going
@@ -140,16 +139,16 @@ vim.o.wrap = true --Wrap lines
 -- function! VisualSelection(direction, extra_filter) range
 --     let l:saved_reg = @" " Assuming this saves off the anonymous register
 --     execute "normal! vgvy" " Not sure what this is doing
--- 
+--
 --     let l:pattern = escape(@", '\\/.*$^~[]') " Weird regex voodoo
 --     let l:pattern = substitute(l:pattern, "\n$", "", "") " Guessing get rid of newlines?
--- 
+--
 --     if a:direction == 'gv'
 --         call CmdLine("Ag \"" . l:pattern . "\" " )
 --     elseif a:direction == 'replace'
 --         call CmdLine("%s" . '/'. l:pattern . '/')
 --     endif
--- 
+--
 --     " Restore registers?
 --     let @/ = l:pattern
 --     let @" = l:saved_reg
@@ -277,7 +276,7 @@ vim.keymap.set('', '<leader>pp', ':setlocal paste!<cr>')
 -- Turn persistent undo on
 --   means that you can undo even when you close a buffer/VIM
 ---------------------------------------------------------------
-vim.opt.undodir = { 's:data_root', '.', '/undo' }
+vim.opt.undodir = { data_root, '.', '/undo' }
 vim.o.undofile = true
 
 ---------------------------------------------------------------
@@ -326,7 +325,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- Plugin Loading
 ---------------------------------------------------------------
 -- Bootstarp lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = data_root .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
