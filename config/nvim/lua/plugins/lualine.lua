@@ -5,6 +5,7 @@ return {
     opts = {
       options = {
         theme = 'powerline_dark',
+        extensions = { 'lazy','mason','neo-tree' }
       }
     }
   }
