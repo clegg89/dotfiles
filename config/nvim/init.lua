@@ -212,7 +212,7 @@ vim.g.lasttab = 1
 vim.keymap.set('n', '<leader>tl', function () vim.cmd.tabnext(vim.g.lasttab) end)
 vim.api.nvim_create_autocmd('TabLeave', {
   pattern = '*',
-  callback = function () vim.g.lasttab = vim.cmd.tabpagenr() end
+  callback = function () vim.g.lasttab = vim.fn.tabpagenr() end
 })
 
 -- Opens a new tab with the current buffer's path
