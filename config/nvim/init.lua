@@ -73,8 +73,8 @@ vim.o.showmatch = true
 vim.o.mat = 2
 
 -- No annoying sound on errors
-vim.o.noerrorbells = true
-vim.o.novisualbell = true
+vim.o.errorbells = false
+vim.o.visualbell = false
 vim.o.tm = 500
 
 -- Add a bit extra margin to the left
@@ -105,9 +105,9 @@ vim.opt.ffs = { 'unix', 'dos', 'mac' }
 -- Files, backups and undo
 ---------------------------------------------------------------
 -- Turn backup off, since most stuff is in SVN, git et.c anyway...
-vim.o.nobackup = true
-vim.o.nowb = true
-vim.o.noswapfile = true
+vim.o.backup = false
+vim.o.wb = false
+vim.o.swapfile = false
 
 ---------------------------------------------------------------
 -- Text, tab and indent related
