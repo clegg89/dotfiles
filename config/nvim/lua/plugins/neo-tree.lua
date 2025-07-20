@@ -11,8 +11,6 @@ return {
       keys = {
         { '<leader>nn', '<cmd>Neotree reveal toggle<cr>', desc = 'Neotree' },
       },
-      config = function()
-        require('neo-tree').setup()
-      end,
+      opts = {}
   }
 }

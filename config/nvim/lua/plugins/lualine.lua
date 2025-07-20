@@ -5,7 +5,7 @@ return {
     opts = {
       options = {
         theme = 'powerline_dark',
-        extensions = { 'lazy','mason','neo-tree' }
+        extensions = { 'lazy','mason','neo-tree','nvim-dap-ui' }
       }
     }
   }
